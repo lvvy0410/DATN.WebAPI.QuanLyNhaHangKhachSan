@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "H2gLaD0ELovgT76XFqpObvXoBJhGpkWKhO/USjiIYGr+6yOoXXO4ih4YWiKbBu6vW+ZN2iV/Cu9Br6y6GgqbmQ==",
+  "dgSpecHash": "xGaWXY2QIC9uU4AITMXPjlaUBOofySio2w8/wMk0yYIxW6iWZPVLGEbbdK1/CdIz3naFMsYQx4PqXca8BzMTWw==",
   "success": true,
-  "projectFilePath": "D:\\ThucTapTN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj",
+  "projectFilePath": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ThanhLen\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\ThanhLen\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

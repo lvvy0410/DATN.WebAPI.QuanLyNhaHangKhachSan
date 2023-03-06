@@ -1,21 +1,23 @@
 using DAO;
 using DTO.Context;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//abc//
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddDbContext<QuanLyNhaHangKhachSanContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("connectionString")));
 
 
-var app = builder.Build();
+
 builder.Services.AddTransient<BanDAO, BanDAO>();
 builder.Services.AddTransient<DichVuDAO, DichVuDAO>();
 builder.Services.AddTransient<GoiMonDAO, GoiMonDAO>();
@@ -37,15 +39,17 @@ builder.Services.AddTransient<PhieuNhapChiTietDAO, PhieuNhapChiTietDAO>();
 builder.Services.AddTransient<PhieuNhapDAO, PhieuNhapDAO>();
 builder.Services.AddTransient<PhieuThuDAO, PhieuThuDAO>();
 builder.Services.AddTransient<PhieuXuatDAO, PhieuXuatDAO>();
+builder.Services.AddTransient<PhongDAO, PhongDAO>();
 builder.Services.AddTransient<TrangThaiDAO, TrangThaiDAO>();
 builder.Services.AddTransient<TrangThietBiDAO, TrangThietBiDAO>();
+var app = builder.Build();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-///aaa
 
 app.UseHttpsRedirection();
 

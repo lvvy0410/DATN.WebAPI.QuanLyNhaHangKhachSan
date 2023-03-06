@@ -2116,11 +2116,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\ThucTapTN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj",
+      "projectUniqueName": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj",
       "projectName": "DAO",
-      "projectPath": "D:\\ThucTapTN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj",
+      "projectPath": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj",
       "packagesPath": "C:\\Users\\ThanhLen\\.nuget\\packages\\",
-      "outputPath": "D:\\ThucTapTN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\obj\\",
+      "outputPath": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2142,8 +2142,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\ThucTapTN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj": {
-              "projectPath": "D:\\ThucTapTN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj"
+            "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj": {
+              "projectPath": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj"
             }
           }
         }
