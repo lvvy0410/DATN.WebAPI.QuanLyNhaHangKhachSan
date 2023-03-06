@@ -1,6 +1,7 @@
 ﻿using DTO.Context;
 using DTO.Model;
 using DTO.Public;
+using DTO.publicDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System;
@@ -61,7 +62,7 @@ namespace DAO
             }
         }
 
-        public async Task<ErrorMessageDTO> ThemTrangThietBi(TrangThietBi trangThietBi)
+        public async Task<ErrorMessageDTO> ThemTrangThietBi(TrangThietBiDTO trangThietBi)
         {
 
             ErrorMessageDTO error = new ErrorMessageDTO();
@@ -84,7 +85,7 @@ namespace DAO
 
         }
 
-        public async Task<ErrorMessageDTO> CapNhatTrangThietBi(TrangThietBi trangThietBi)
+        public async Task<ErrorMessageDTO> CapNhatTrangThietBi(TrangThietBiDTO trangThietBi)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             TrangThietBi? item = dbcontext.TrangThietBis.Where(p => p.TrangThietBiId == trangThietBi.TrangThietBiId).FirstOrDefault();

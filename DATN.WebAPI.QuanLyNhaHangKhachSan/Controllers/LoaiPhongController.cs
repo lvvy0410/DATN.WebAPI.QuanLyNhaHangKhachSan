@@ -4,6 +4,7 @@ using DTO.Context;
 using DTO.Model;
 
 using DTO.Public;
+using DTO.publicDTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -140,17 +141,17 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
             try
             {
                 ErrorMessageDTO error = await loaiPhongDAO.CapNhatLoaiPhong(loaiPhong);
-                if (error.flagBiLoiEx || !error.flagThanhCong)
+                if (error.flagBiLoiEx)
                 {
-
+                    responseDTO.statusCode=HttpStatusCode.OK;
                     responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheCapNhat).ToString();
-                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
+                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheCapNhat);
                     return Ok(responseDTO);
 
                 }
-                if (error.data == null)
+                if (loaiPhong == null)
                 {
-
+                    responseDTO.statusCode = HttpStatusCode.OK;
                     responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
                     responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
                     return Ok(responseDTO);

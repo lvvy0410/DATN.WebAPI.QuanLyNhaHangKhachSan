@@ -1,6 +1,7 @@
 ﻿using DTO.Context;
 using DTO.Model;
 using DTO.Public;
+using DTO.publicDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System;
@@ -95,10 +96,7 @@ namespace DAO
                 item.TenLoaiPhong = loaiPhong.TenLoaiPhong;
                 item.SoNguoiToiDa = loaiPhong.SoNguoiToiDa;
                 item.DonGia = loaiPhong.DonGia;
-
-
-                await dbcontext.SaveChangesAsync();
-                error.data = item;
+                await dbcontext.SaveChangesAsync();               
 
                 error.errorCode = Convert.ToInt32(ErrorCodeEnum.NoError).ToString();
                 error.message = ResponseDTO.GetValueError(ErrorCodeEnum.CapNhatThanhCong);

@@ -1,6 +1,7 @@
 ﻿using DTO.Context;
 using DTO.Model;
 using DTO.Public;
+using DTO.publicDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System;
@@ -61,7 +62,7 @@ namespace DAO
             }
         }
 
-        public async Task<ErrorMessageDTO> ThemPhong(Phong phong)
+        public async Task<ErrorMessageDTO> ThemPhong(PhongDTO phong)
         {
 
             ErrorMessageDTO error = new ErrorMessageDTO();
@@ -84,7 +85,7 @@ namespace DAO
 
         }
 
-        public async Task<ErrorMessageDTO> CapNhatPhong(Phong phong)
+        public async Task<ErrorMessageDTO> CapNhatPhong(PhongDTO phong)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             Phong? item = dbcontext.Phongs.Where(p => p.PhongId == phong.PhongId).FirstOrDefault();

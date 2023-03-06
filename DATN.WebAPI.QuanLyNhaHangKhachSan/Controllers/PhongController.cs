@@ -3,6 +3,7 @@ using DTO.Context;
 using DTO.Model;
 
 using DTO.Public;
+using DTO.publicDTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -107,7 +108,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 
         [HttpPost]
         [Route("Them-Phong")]
-        public async Task<ActionResult<Phong>> ThemPhong(Phong Phong)
+        public async Task<ActionResult<Phong>> ThemPhong(PhongDTO Phong)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
@@ -138,7 +139,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
         }
         [HttpPost]
         [Route("CapNhat-Phong")]
-        public async Task<ActionResult<Phong>> CapNhatPhong(Phong Phong)
+        public async Task<ActionResult<Phong>> CapNhatPhong(PhongDTO Phong)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
