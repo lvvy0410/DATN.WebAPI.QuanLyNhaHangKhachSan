@@ -39,6 +39,13 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                     responseDTO.message = error.message;
                     return Ok(responseDTO);
                 }
+                if (trangThai == null)
+                {
+                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
+                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
+                    error.flagThanhCong = false;
+                    return Ok(responseDTO);
+                }
                 if (error.data == null)
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
@@ -115,7 +122,12 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                     responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
                     return Ok(responseDTO);
                 }
-
+                if (trangThai == null)
+                {
+                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
+                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
+                    return Ok(responseDTO);
+                }
                 responseDTO.statusCode = HttpStatusCode.OK;
                 responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.ThemThanhCong).ToString();
                 responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.ThemThanhCong);
@@ -185,7 +197,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                     responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheXoa);
                     return Ok(responseDTO);
                 }
-                if (error.data == null)
+                if (trangThai == null)
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
                     responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();

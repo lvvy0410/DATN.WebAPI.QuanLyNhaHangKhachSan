@@ -1,6 +1,7 @@
 ﻿using DTO.Context;
 using DTO.Model;
 using DTO.Public;
+using DTO.publicDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System;
@@ -27,13 +28,7 @@ namespace DAO
             try
             {
                 Phong? item = dbcontext.Phongs.Where(p => p.PhongId == phong).FirstOrDefault();
-                if (item == null)
-                {
-                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
-                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
-                    error.flagThanhCong = false;
-                    return await Task.FromResult(error);
-                }
+               
 
                 error.data = item;
                 error.flagThanhCong = true;
@@ -67,18 +62,13 @@ namespace DAO
             }
         }
 
-        public async Task<ErrorMessageDTO> ThemPhong(Phong phong)
+        public async Task<ErrorMessageDTO> ThemPhong(PhongDTO phong)
         {
 
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                if (error.flagBiLoiEx)
-                {
-                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
-                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
-                    return await Task.FromResult(error);
-                }
+               
                 error.flagThanhCong = true;
                 dbcontext.Phongs.Add(phong);
                 dbcontext.SaveChanges();
@@ -95,18 +85,13 @@ namespace DAO
 
         }
 
-        public async Task<ErrorMessageDTO> CapNhatPhong(Phong phong)
+        public async Task<ErrorMessageDTO> CapNhatPhong(PhongDTO phong)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             Phong? item = dbcontext.Phongs.Where(p => p.PhongId == phong.PhongId).FirstOrDefault();
             try
             {
-                if (error.flagBiLoiEx)
-                {
-                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheCapNhat).ToString();
-                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheCapNhat);
-                    return await Task.FromResult(error);
-                }
+               
                 error.flagThanhCong = true;
                 item.LoaiPhongId = phong.LoaiPhongId;
                 item.TrangThaiId = phong.TrangThaiId;
@@ -139,12 +124,7 @@ namespace DAO
             Phong? item = dbcontext.Phongs.Where(p => p.PhongId == phong).FirstOrDefault();
             try
             {
-                if (item == null)
-                {
-                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
-                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
-                    return await Task.FromResult(error);
-                }
+                
 
                 dbcontext.Remove(item);
                 error.data = await dbcontext.SaveChangesAsync();

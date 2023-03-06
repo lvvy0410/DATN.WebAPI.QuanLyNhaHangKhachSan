@@ -27,13 +27,7 @@ namespace DAO
             try
             {
                 TrangThai? item = dbcontext.TrangThais.Where(p => p.TrangThaiId == trangThai).FirstOrDefault();
-                if (item == null)
-                {
-                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
-                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
-                    error.flagThanhCong = false;
-                    return await Task.FromResult(error);
-                }
+               
 
                 error.data = item;
                 error.flagThanhCong = true;
@@ -73,12 +67,7 @@ namespace DAO
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                if (error.flagBiLoiEx)
-                {
-                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
-                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
-                    return await Task.FromResult(error);
-                }
+               
                 error.flagThanhCong = true;
                 dbcontext.TrangThais.Add(trangThai);
                 dbcontext.SaveChanges();
@@ -101,12 +90,6 @@ namespace DAO
             TrangThai? item = dbcontext.TrangThais.Where(p => p.TrangThaiId == trangThai.TrangThaiId).FirstOrDefault();
             try
             {
-                if (error.flagBiLoiEx)
-                {
-                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheCapNhat).ToString();
-                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheCapNhat);
-                    return await Task.FromResult(error);
-                }
                 error.flagThanhCong = true;
                 item.TenTrangThai = trangThai.TenTrangThai;
                 item.MaTrangThai = trangThai.MaTrangThai;
@@ -138,12 +121,7 @@ namespace DAO
             TrangThai? item = dbcontext.TrangThais.Where(p => p.TrangThaiId == trangThai).FirstOrDefault();
             try
             {
-                if (item == null)
-                {
-                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
-                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
-                    return await Task.FromResult(error);
-                }
+              
 
                 dbcontext.Remove(item);
                 error.data = await dbcontext.SaveChangesAsync();

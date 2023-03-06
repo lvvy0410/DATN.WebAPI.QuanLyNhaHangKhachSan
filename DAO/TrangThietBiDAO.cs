@@ -1,6 +1,7 @@
 ﻿using DTO.Context;
 using DTO.Model;
 using DTO.Public;
+using DTO.publicDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System;
@@ -27,13 +28,7 @@ namespace DAO
             try
             {
                 TrangThietBi? item = dbcontext.TrangThietBis.Where(p => p.TrangThietBiId == trangThietBi).FirstOrDefault();
-                if (item == null)
-                {
-                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
-                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
-                    error.flagThanhCong = false;
-                    return await Task.FromResult(error);
-                }
+               
 
                 error.data = item;
                 error.flagThanhCong = true;
@@ -67,18 +62,13 @@ namespace DAO
             }
         }
 
-        public async Task<ErrorMessageDTO> ThemTrangThietBi(TrangThietBi trangThietBi)
+        public async Task<ErrorMessageDTO> ThemTrangThietBi(TrangThietBiDTO trangThietBi)
         {
 
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                if (error.flagBiLoiEx)
-                {
-                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
-                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
-                    return await Task.FromResult(error);
-                }
+               
                 error.flagThanhCong = true;
                 dbcontext.TrangThietBis.Add(trangThietBi);
                 dbcontext.SaveChanges();
@@ -95,18 +85,13 @@ namespace DAO
 
         }
 
-        public async Task<ErrorMessageDTO> CapNhatTrangThietBi(TrangThietBi trangThietBi)
+        public async Task<ErrorMessageDTO> CapNhatTrangThietBi(TrangThietBiDTO trangThietBi)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             TrangThietBi? item = dbcontext.TrangThietBis.Where(p => p.TrangThietBiId == trangThietBi.TrangThietBiId).FirstOrDefault();
             try
             {
-                if (error.flagBiLoiEx)
-                {
-                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheCapNhat).ToString();
-                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheCapNhat);
-                    return await Task.FromResult(error);
-                }
+               
                 error.flagThanhCong = true;
                 item.TenTrangThietBi = trangThietBi.TenTrangThietBi;
                 item.PhongId = trangThietBi.PhongId;
@@ -139,13 +124,7 @@ namespace DAO
             TrangThietBi? item = dbcontext.TrangThietBis.Where(p => p.TrangThietBiId == trangThietBi).FirstOrDefault();
             try
             {
-                if (item == null)
-                {
-                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
-                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
-                    return await Task.FromResult(error);
-                }
-
+              
                 dbcontext.Remove(item);
                 error.data = await dbcontext.SaveChangesAsync();
                 error.flagThanhCong = true;
