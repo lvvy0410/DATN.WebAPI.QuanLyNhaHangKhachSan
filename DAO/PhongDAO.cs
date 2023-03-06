@@ -3,6 +3,7 @@ using DTO.Model;
 using DTO.Public;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -94,7 +95,7 @@ namespace DAO
 
         }
 
-        public async Task<ErrorMessageDTO> CapNhatBan(Phong phong)
+        public async Task<ErrorMessageDTO> CapNhatPhong(Phong phong)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             Phong? item = dbcontext.Phongs.Where(p => p.PhongId == phong.PhongId).FirstOrDefault();
@@ -111,6 +112,7 @@ namespace DAO
                 item.TrangThaiId = phong.TrangThaiId;
                 item.SoPhong = phong.SoPhong;
                 item.Tang = phong.Tang;
+
 
                 await dbcontext.SaveChangesAsync();
                 error.data = item;
