@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<QuanLyNhaHangKhachSanContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("connectionString")));
 
-var app = builder.Build();
+
 builder.Services.AddTransient<BanDAO, BanDAO>();
 builder.Services.AddTransient<DichVuDAO, DichVuDAO>();
 builder.Services.AddTransient<GoiMonDAO, GoiMonDAO>();
@@ -37,6 +37,7 @@ builder.Services.AddTransient<PhieuThuDAO, PhieuThuDAO>();
 builder.Services.AddTransient<PhieuXuatDAO, PhieuXuatDAO>();
 builder.Services.AddTransient<TrangThaiDAO, TrangThaiDAO>();
 builder.Services.AddTransient<TrangThietBiDAO, TrangThietBiDAO>();
+var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
