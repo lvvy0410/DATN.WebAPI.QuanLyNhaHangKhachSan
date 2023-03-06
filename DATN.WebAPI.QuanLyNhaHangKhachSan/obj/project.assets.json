@@ -2332,7 +2332,18 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+<<<<<<< HEAD
           "projectReferences": {}
+=======
+          "projectReferences": {
+            "D:\\ThucTapTN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj": {
+              "projectPath": "D:\\ThucTapTN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj"
+            },
+            "D:\\ThucTapTN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj": {
+              "projectPath": "D:\\ThucTapTN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj"
+            }
+          }
+>>>>>>> develop
         }
       },
       "warningProperties": {
