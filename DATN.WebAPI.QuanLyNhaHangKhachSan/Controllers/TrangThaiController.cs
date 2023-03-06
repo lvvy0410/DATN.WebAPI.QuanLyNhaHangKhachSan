@@ -115,7 +115,12 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                     responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
                     return Ok(responseDTO);
                 }
-
+                if (trangThai == null)
+                {
+                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
+                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
+                    return Ok(responseDTO);
+                }
                 responseDTO.statusCode = HttpStatusCode.OK;
                 responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.ThemThanhCong).ToString();
                 responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.ThemThanhCong);

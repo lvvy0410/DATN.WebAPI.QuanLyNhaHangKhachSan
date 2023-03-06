@@ -39,6 +39,14 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                     responseDTO.message = error.message;
                     return Ok(responseDTO);
                 }
+                if (loaiPhong == null)
+                {
+                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
+                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
+                    error.flagThanhCong = false;
+                    return Ok(responseDTO);
+                }
+
                 if (error.data == null)
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
@@ -102,20 +110,20 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 
         [HttpPost]
         [Route("Them-LoaiPhong")]
-        public async Task<ActionResult<LoaiPhong>> ThemLoaiPhong(LoaiPhong LoaiPhong)
+        public async Task<ActionResult<LoaiPhong>> ThemLoaiPhong(LoaiPhong loaiPhong)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await loaiPhongDAO.ThemLoaiPhong(LoaiPhong);
+                ErrorMessageDTO error = await loaiPhongDAO.ThemLoaiPhong(loaiPhong);
                 if (error.flagBiLoiEx)
                 {
-
+                    responseDTO.statusCode=HttpStatusCode.OK;
                     responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
                     responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
                     return Ok(responseDTO);
                 }
-
+             
                 responseDTO.statusCode = HttpStatusCode.OK;
                 responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.ThemThanhCong).ToString();
                 responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.ThemThanhCong);
@@ -172,12 +180,12 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
         }
         [HttpDelete]
         [Route("Xoa-LoaiPhong")]
-        public async Task<ActionResult<LoaiPhong>> Xoa(int LoaiPhong)
+        public async Task<ActionResult<LoaiPhong>> Xoa(int loaiPhong)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await loaiPhongDAO.Xoa(LoaiPhong);
+                ErrorMessageDTO error = await loaiPhongDAO.Xoa(loaiPhong);
                 if (error.flagBiLoiEx)
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
@@ -190,6 +198,12 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                     responseDTO.statusCode = HttpStatusCode.OK;
                     responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
                     responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
+                    return Ok(responseDTO);
+                }
+                if (loaiPhong == null)
+                {
+                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
+                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
                     return Ok(responseDTO);
                 }
                 responseDTO.statusCode = HttpStatusCode.OK;

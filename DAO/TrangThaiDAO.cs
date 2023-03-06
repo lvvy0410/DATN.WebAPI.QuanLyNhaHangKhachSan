@@ -138,12 +138,7 @@ namespace DAO
             TrangThai? item = dbcontext.TrangThais.Where(p => p.TrangThaiId == trangThai).FirstOrDefault();
             try
             {
-                if (item == null)
-                {
-                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
-                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
-                    return await Task.FromResult(error);
-                }
+              
 
                 dbcontext.Remove(item);
                 error.data = await dbcontext.SaveChangesAsync();
