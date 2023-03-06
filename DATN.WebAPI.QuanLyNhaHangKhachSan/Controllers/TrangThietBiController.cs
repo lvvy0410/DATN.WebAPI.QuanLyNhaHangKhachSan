@@ -39,6 +39,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                     responseDTO.message = error.message;
                     return Ok(responseDTO);
                 }
+              
                 if (error.data == null)
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
@@ -172,12 +173,12 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
         }
         [HttpDelete]
         [Route("Xoa-TrangThietBi")]
-        public async Task<ActionResult<TrangThietBi>> Xoa(int TrangThietBi)
+        public async Task<ActionResult<TrangThietBi>> Xoa(int trangThietBi)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await trangThietBiDAO.Xoa(TrangThietBi);
+                ErrorMessageDTO error = await trangThietBiDAO.Xoa(trangThietBi);
                 if (error.flagBiLoiEx)
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
@@ -185,13 +186,14 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                     responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheXoa);
                     return Ok(responseDTO);
                 }
-                if (error.data == null)
+                if (trangThietBi == null)
                 {
-                    responseDTO.statusCode = HttpStatusCode.OK;
-                    responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
-                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
+                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
+                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
                     return Ok(responseDTO);
                 }
+
+              
                 responseDTO.statusCode = HttpStatusCode.OK;
                 responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.XoaThanhCong).ToString();
                 responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.XoaThanhCong);

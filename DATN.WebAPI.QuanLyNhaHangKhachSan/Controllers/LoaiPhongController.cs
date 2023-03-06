@@ -41,21 +41,14 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                 }
                 if (loaiPhong == null)
                 {
+                    responseDTO.statusCode = HttpStatusCode.OK;
                     error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
                     error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
                     error.flagThanhCong = false;
                     return Ok(responseDTO);
                 }
 
-                if (error.data == null)
-                {
-                    responseDTO.statusCode = HttpStatusCode.OK;
-                    //responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnumDTO.NotFound).ToString();
-                    //responseDTO.message = "LoaiPhongng tim thay san pham";
-                    responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
-                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
-                    return Ok(responseDTO);
-                }
+               
 
                 responseDTO.statusCode = HttpStatusCode.OK;
                 responseDTO.message = HttpStatusCode.OK.ToString();
@@ -193,13 +186,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                     responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheXoa);
                     return Ok(responseDTO);
                 }
-                if (error.data == null)
-                {
-                    responseDTO.statusCode = HttpStatusCode.OK;
-                    responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
-                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
-                    return Ok(responseDTO);
-                }
+               
                 if (loaiPhong == null)
                 {
                     error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
