@@ -4,11 +4,13 @@ using DTO.Context;
 using DTO.Model;
 
 using DTO.Public;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class NguoiDungController : ControllerBase
