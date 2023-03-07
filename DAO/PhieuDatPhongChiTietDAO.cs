@@ -1,6 +1,7 @@
 ﻿using DTO.Context;
 using DTO.Model;
 using DTO.Public;
+using DTO.publicDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -63,7 +64,7 @@ namespace DAO
                 return await Task.FromResult(error);
             }
         }
-        public async Task<ErrorMessageDTO> ThemPhieuDatPhongChiTiet(PhieuDatPhongChiTiet obPhieuDatPhongChiTiet)
+        public async Task<ErrorMessageDTO> ThemPhieuDatPhongChiTiet(PhieuDatPhongChiTietDTO obPhieuDatPhongChiTiet)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
@@ -91,7 +92,7 @@ namespace DAO
                 return await Task.FromResult(error);
             }
         }
-        public async Task<ErrorMessageDTO> CapNhatPhieuDatPhongChiTiet(PhieuDatPhongChiTiet obPhieuDatPhongChiTiet)
+        public async Task<ErrorMessageDTO> CapNhatPhieuDatPhongChiTiet(PhieuDatPhongChiTietDTO obPhieuDatPhongChiTiet)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
