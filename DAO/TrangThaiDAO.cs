@@ -81,7 +81,6 @@ namespace DAO
                 error.message = ResponseDTO.GetValueError(ErrorCodeEnum.InternalServerError).ToString();
                 return await Task.FromResult(error);
             }
-
         }
 
         public async Task<ErrorMessageDTO> CapNhatTrangThai(TrangThai trangThai)
