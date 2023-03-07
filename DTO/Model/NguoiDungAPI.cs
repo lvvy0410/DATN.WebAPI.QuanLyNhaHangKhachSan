@@ -8,7 +8,7 @@ namespace DTO.Model
 {
     public class NguoiDungAPI
     {
-        public string user { get; set; }
+        public string userName { get; set; }
         public string pass { get; set; }
 
     }

@@ -25,9 +25,9 @@ namespace JWTAuth.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(NguoiDungAPI _userData)
         {
-            if (_userData != null && _userData.user != null && _userData.pass != null)
+            if (_userData != null && _userData.userName != null && _userData.pass != null)
             {
-                var user = await GetUser(_userData.user, _userData.pass);
+                var user = await GetUser(_userData.userName, _userData.pass);
 
                 if (user != null)
                 {
@@ -67,9 +67,9 @@ namespace JWTAuth.WebApi.Controllers
             try
             {
                 NguoiDungAPI nguoiDungAPI = new NguoiDungAPI();
-                nguoiDungAPI.user = "admin";
+                nguoiDungAPI.userName = "admin";
                 nguoiDungAPI.pass = "123456";
-                if ( user== nguoiDungAPI.user && pass == nguoiDungAPI.pass)
+                if ( user== nguoiDungAPI.userName && pass == nguoiDungAPI.pass)
                 {
                     return nguoiDungAPI;
                 }
