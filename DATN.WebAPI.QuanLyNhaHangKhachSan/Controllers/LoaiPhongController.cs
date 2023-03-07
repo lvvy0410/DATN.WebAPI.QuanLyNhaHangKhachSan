@@ -1,38 +1,88 @@
-﻿using DAO;
+﻿
+using DAO;
 using DTO.Context;
 using DTO.Model;
-using DTO.publicDTO;
+
 using DTO.Public;
+using DTO.publicDTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 {
-    [Route("api/PhieuDat")]
+    [Authorize]   
+    [Route("api/[controller]")]
     [ApiController]
-    public class PhieuDatController : Controller
+    public class LoaiPhongController : ControllerBase
     {
-
-
         private readonly QuanLyNhaHangKhachSanContext dbcontext;
-        private readonly PhieuDatDAO PhieuDatDAO;
+        private readonly LoaiPhongDAO loaiPhongDAO;
 
-        public PhieuDatController(QuanLyNhaHangKhachSanContext dbcontext, PhieuDatDAO PhieuDatDAO)
+
+        public LoaiPhongController(QuanLyNhaHangKhachSanContext dbcontext, LoaiPhongDAO loaiPhongDAO)
         {
-            this.PhieuDatDAO = PhieuDatDAO;
             this.dbcontext = dbcontext;
+            this.loaiPhongDAO = loaiPhongDAO;
+
         }
-        [HttpPost]
-        [Route("danhsach-PhieuDat")]
-        public async Task<ActionResult<ResponseDTO>> LayDanhSachPhieuDat()
+
+        [HttpGet]
+        [Route("timloaiphong")]
+        public async Task<ActionResult<ResponseDTO>> TimLoaiPhong(int loaiPhong)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await PhieuDatDAO.LayDanhSachPhieuDat();
-                if (error.flagBiLoiEx || !error.flagThanhCong)
+                ErrorMessageDTO error = await loaiPhongDAO.TimLoaiPhong(loaiPhong);
+                if (error.flagBiLoiEx || !error.flagThanhCong)//(error.flagThanhCong == false))
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
+                    responseDTO.errorCode = error.errorCode;
+                    responseDTO.message = error.message;
+                    return Ok(responseDTO);
+                }
+                if (loaiPhong == null)
+                {
+                    responseDTO.statusCode = HttpStatusCode.OK;
+                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
+                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
+                    error.flagThanhCong = false;
+                    return Ok(responseDTO);
+                }
+
+               
+
+                responseDTO.statusCode = HttpStatusCode.OK;
+                responseDTO.message = HttpStatusCode.OK.ToString();
+                responseDTO.errorCode = HttpStatusCode.OK.ToString();
+                responseDTO.data = error.data;
+
+                return Ok(responseDTO);
+            }
+            catch (Exception ex)
+            {
+
+                responseDTO.statusCode = HttpStatusCode.BadRequest;
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
+                responseDTO.message = ex.Message;
+                return BadRequest(responseDTO);
+            }
+        }
+
+
+        [HttpPost]
+        [Route("danhsach-LoaiPhong")]
+        public async Task<ActionResult<ResponseDTO>> LayDanhSachLoaiPhong()
+        {
+
+            ResponseDTO responseDTO = new ResponseDTO();
+            try
+            {
+                ErrorMessageDTO error = await loaiPhongDAO.LayDanhSachLoaiPhong();
+                if (error.flagBiLoiEx || !error.flagThanhCong)//(error.flagThanhCong == false))
+                {
+
                     responseDTO.errorCode = error.errorCode;
                     responseDTO.message = error.message;
                     return Ok(responseDTO);
@@ -53,107 +103,71 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                 return BadRequest(responseDTO);
             }
         }
-        [HttpGet]
-        [Route("{PhieuDatID}")]
-        public async Task<ActionResult<ResponseDTO>> LayPhieuDat(Int32 PhieuDatID)
+
+        [HttpPost]
+        [Route("Them-LoaiPhong")]
+        public async Task<ActionResult<LoaiPhong>> ThemLoaiPhong(LoaiPhong loaiPhong)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await PhieuDatDAO.LayPhieuDat(PhieuDatID);
-                if (error.flagBiLoiEx || !error.flagThanhCong)
+                ErrorMessageDTO error = await loaiPhongDAO.ThemLoaiPhong(loaiPhong);
+                if (error.flagBiLoiEx)
                 {
-                    responseDTO.statusCode = HttpStatusCode.OK;
-                    responseDTO.errorCode = error.errorCode;
-                    responseDTO.message = error.message;
+                    responseDTO.statusCode=HttpStatusCode.OK;
+                    responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
+                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
                     return Ok(responseDTO);
                 }
-                if (error.data == null)
+             
+                responseDTO.statusCode = HttpStatusCode.OK;
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.ThemThanhCong).ToString();
+                responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.ThemThanhCong);
+                return Ok(responseDTO);
+            }
+            catch (Exception ex)
+            {
+                responseDTO.statusCode = HttpStatusCode.BadRequest;
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
+                responseDTO.message = ex.Message;
+
+                return BadRequest(responseDTO);
+            }
+
+        }
+        [HttpPost]
+        [Route("CapNhat-LoaiPhong")]
+        public async Task<ActionResult<LoaiPhong>> CapNhatLoaiPhong(LoaiPhong loaiPhong)
+        {
+            ResponseDTO responseDTO = new ResponseDTO();
+            try
+            {
+                ErrorMessageDTO error = await loaiPhongDAO.CapNhatLoaiPhong(loaiPhong);
+                if (error.flagBiLoiEx)
+                {
+                    responseDTO.statusCode=HttpStatusCode.OK;
+                    responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheCapNhat).ToString();
+                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheCapNhat);
+                    return Ok(responseDTO);
+
+                }
+                if (loaiPhong == null)
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
                     responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
                     responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
                     return Ok(responseDTO);
                 }
-
                 responseDTO.statusCode = HttpStatusCode.OK;
-                responseDTO.message = HttpStatusCode.OK.ToString();
+                responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.CapNhatThanhCong);
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.CapNhatThanhCong).ToString();
                 responseDTO.data = error.data;
-
                 return Ok(responseDTO);
+
+
             }
             catch (Exception ex)
             {
-
-                responseDTO.statusCode = HttpStatusCode.BadRequest;
-                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
-                responseDTO.message = ex.Message;
-                return BadRequest(responseDTO);
-            }
-        }
-        [HttpPost]
-        [Route("them-PhieuDat")]
-        public async Task<ActionResult<ResponseDTO>> ThemPhieuDat(PhieuDatDTO obPhieuDat)
-        {
-            ResponseDTO responseDTO = new ResponseDTO();
-            try
-            {
-                ErrorMessageDTO error = await PhieuDatDAO.ThemPhieuDat(obPhieuDat);
-                if (error.flagBiLoiEx || !error.flagThanhCong)
-                {
-                    responseDTO.statusCode = HttpStatusCode.OK;
-                    responseDTO.errorCode = error.errorCode;
-                    responseDTO.message = error.message;
-                    return Ok(responseDTO);
-                }
-
-                responseDTO.statusCode = HttpStatusCode.OK;
-                responseDTO.message = HttpStatusCode.OK.ToString();
-                responseDTO.data = error.data;
-
-                return Ok(responseDTO);
-            }
-            catch (Exception ex)
-            {
-
-                responseDTO.statusCode = HttpStatusCode.BadRequest;
-                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
-                responseDTO.message = ex.Message;
-                return BadRequest(responseDTO);
-            }
-        }
-        [HttpPost]
-        [Route("capnhat-PhieuDat")]
-        public async Task<ActionResult<ResponseDTO>> CapNhatPhieuDat(PhieuDatDTO obPhieuDat)
-        {
-            ResponseDTO responseDTO = new ResponseDTO();
-            try
-            {
-                ErrorMessageDTO error = await PhieuDatDAO.CapNhatPhieuDat(obPhieuDat);
-                if (error.flagBiLoiEx)
-                {
-                    responseDTO.statusCode = HttpStatusCode.OK;
-                    responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.NotFound).ToString();
-                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheCapNhat);
-                    return Ok(responseDTO);
-                }
-                if (error.flagThanhCong == false)
-                {
-                    responseDTO.statusCode = HttpStatusCode.OK;
-                    responseDTO.errorCode = error.errorCode;
-                    responseDTO.message = error.message;
-                    return Ok(responseDTO);
-                }
-
-                responseDTO.statusCode = HttpStatusCode.OK;
-                responseDTO.message = HttpStatusCode.OK.ToString();
-                responseDTO.data = error.data;
-
-                return Ok(responseDTO);
-            }
-            catch (Exception ex)
-            {
-
                 responseDTO.statusCode = HttpStatusCode.BadRequest;
                 responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
                 responseDTO.message = ex.Message;
@@ -161,43 +175,44 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
             }
         }
         [HttpDelete]
-        [Route("xoa-PhieuDat")]
-        public async Task<ActionResult<ResponseDTO>> XoaSanPham(int PhieuDatID)
+        [Route("Xoa-LoaiPhong")]
+        public async Task<ActionResult<LoaiPhong>> Xoa(int loaiPhong)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await PhieuDatDAO.XoaPhieuDat(PhieuDatID);
+                ErrorMessageDTO error = await loaiPhongDAO.Xoa(loaiPhong);
                 if (error.flagBiLoiEx)
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
-                    responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.NotFound).ToString();
+                    responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheXoa).ToString();
                     responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheXoa);
                     return Ok(responseDTO);
                 }
-                if (error.flagThanhCong == false)
+               
+                if (loaiPhong == null)
                 {
-                    responseDTO.statusCode = HttpStatusCode.OK;
-                    responseDTO.errorCode = error.errorCode;
-                    responseDTO.message = error.message;
+                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
+                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
                     return Ok(responseDTO);
                 }
                 responseDTO.statusCode = HttpStatusCode.OK;
-                responseDTO.errorCode = error.errorCode;
-                responseDTO.message = error.message;
-                responseDTO.data = error.data;
-
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.XoaThanhCong).ToString();
+                responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.XoaThanhCong);
                 return Ok(responseDTO);
+
             }
             catch (Exception ex)
             {
-
                 responseDTO.statusCode = HttpStatusCode.BadRequest;
                 responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
                 responseDTO.message = ex.Message;
                 return BadRequest(responseDTO);
             }
         }
+
+
+
 
     }
 }
