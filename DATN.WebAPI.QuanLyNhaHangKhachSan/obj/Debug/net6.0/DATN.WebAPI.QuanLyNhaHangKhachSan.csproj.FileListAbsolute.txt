@@ -214,3 +214,8 @@ D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DATN.WebAPI.QuanLyNhaHangKhachSan\o
 D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DATN.WebAPI.QuanLyNhaHangKhachSan\obj\Debug\net6.0\DATN.WebAPI.QuanLyNhaHangKhachSan.genruntimeconfig.cache
 D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DATN.WebAPI.QuanLyNhaHangKhachSan\obj\Debug\net6.0\ref\DATN.WebAPI.QuanLyNhaHangKhachSan.dll
 D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DATN.WebAPI.QuanLyNhaHangKhachSan\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\dulieucanhan\thực tập\api\DATN.WebAPI.QuanLyNhaHangKhachSan\DATN.WebAPI.QuanLyNhaHangKhachSan\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\dulieucanhan\thực tập\api\DATN.WebAPI.QuanLyNhaHangKhachSan\DATN.WebAPI.QuanLyNhaHangKhachSan\bin\Debug\net6.0\DAO.dll
+C:\dulieucanhan\thực tập\api\DATN.WebAPI.QuanLyNhaHangKhachSan\DATN.WebAPI.QuanLyNhaHangKhachSan\bin\Debug\net6.0\DTO.dll
+C:\dulieucanhan\thực tập\api\DATN.WebAPI.QuanLyNhaHangKhachSan\DATN.WebAPI.QuanLyNhaHangKhachSan\bin\Debug\net6.0\DAO.pdb
+C:\dulieucanhan\thực tập\api\DATN.WebAPI.QuanLyNhaHangKhachSan\DATN.WebAPI.QuanLyNhaHangKhachSan\bin\Debug\net6.0\DTO.pdb

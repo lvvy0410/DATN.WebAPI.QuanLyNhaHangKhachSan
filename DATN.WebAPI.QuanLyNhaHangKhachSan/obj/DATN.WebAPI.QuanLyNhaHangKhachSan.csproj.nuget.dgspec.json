@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan.csproj": {}
+    "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan.csproj": {}
   },
   "projects": {
-    "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj": {
+    "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj",
+        "projectUniqueName": "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj",
         "projectName": "DAO",
-        "projectPath": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj",
-        "packagesPath": "C:\\Users\\ThanhLen\\.nuget\\packages\\",
-        "outputPath": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\obj\\",
+        "projectPath": "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ThanhLen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,15 +26,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj": {
-                "projectPath": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj"
+              "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj": {
+                "projectPath": "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj"
               }
             }
           }
@@ -92,20 +91,20 @@
         }
       }
     },
-    "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan.csproj": {
+    "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan.csproj",
+        "projectUniqueName": "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan.csproj",
         "projectName": "DATN.WebAPI.QuanLyNhaHangKhachSan",
-        "projectPath": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan.csproj",
-        "packagesPath": "C:\\Users\\ThanhLen\\.nuget\\packages\\",
-        "outputPath": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan\\obj\\",
+        "projectPath": "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ThanhLen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -114,15 +113,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj": {
-                "projectPath": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj"
+              "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj": {
+                "projectPath": "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj"
               }
             }
           }
@@ -191,20 +189,20 @@
         }
       }
     },
-    "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj": {
+    "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj",
+        "projectUniqueName": "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj",
         "projectName": "DTO",
-        "projectPath": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj",
-        "packagesPath": "C:\\Users\\ThanhLen\\.nuget\\packages\\",
-        "outputPath": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\obj\\",
+        "projectPath": "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ThanhLen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -213,7 +211,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
