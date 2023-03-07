@@ -1,13 +1,10 @@
-<<<<<<< HEAD
 ﻿using System;
-=======
 ﻿using DTO.Context;
 using DTO.Model;
 using DTO.Public;
 using DTO.publicDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
->>>>>>> vy
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,8 +14,6 @@ namespace DAO
 {
     public class PhieuDatPhongChiTietDAO
     {
-<<<<<<< HEAD
-=======
         private readonly QuanLyNhaHangKhachSanContext dbcontext;
 
         public PhieuDatPhongChiTietDAO(QuanLyNhaHangKhachSanContext dbcontext)
@@ -152,6 +147,5 @@ namespace DAO
                 return await Task.FromResult(error);
             }
         }
->>>>>>> vy
     }
 }
