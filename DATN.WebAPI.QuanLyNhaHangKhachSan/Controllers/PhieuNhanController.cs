@@ -5,9 +5,11 @@ using DTO.publicDTO;
 using DTO.Public;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 {
+    [Authorize]
     [Route("api/PhieuNhan")]
     [ApiController]
     public class PhieuNhanController : Controller
