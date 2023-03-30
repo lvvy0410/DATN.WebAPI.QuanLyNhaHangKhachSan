@@ -10,7 +10,7 @@ using System.Net;
 
 namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 {
-    [Authorize]
+  [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PhongController : ControllerBase

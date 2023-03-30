@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DATN.WebAPI.QuanLyNhaHangKhachSan", "DATN.WebAPI.QuanLyNhaHangKhachSan\DATN.WebAPI.QuanLyNhaHangKhachSan.csproj", "{0E8D8F20-1241-49D8-9BC6-CD99179E5337}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DATN.WebAPI.QuanLyNhaHangKhachSan", "DATN.WebAPI.QuanLyNhaHangKhachSan\DATN.WebAPI.QuanLyNhaHangKhachSan.csproj", "{0E8D8F20-1241-49D8-9BC6-CD99179E5337}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAO", "DAO\DAO.csproj", "{6E0DB587-CC55-4CA2-BF88-0119DD3B4EF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAO", "DAO\DAO.csproj", "{6E0DB587-CC55-4CA2-BF88-0119DD3B4EF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{B664A145-58EC-4B67-B858-EDD235C6B93B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{B664A145-58EC-4B67-B858-EDD235C6B93B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

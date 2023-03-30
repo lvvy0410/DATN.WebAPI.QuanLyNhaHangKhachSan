@@ -16,6 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<QuanLyNhaHangKhachSanContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("connectionString")));
 
+
 /// chia khóa---------------------
 builder.Services.AddSwaggerGen(c =>
 {
@@ -89,10 +90,29 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction() || app.Environment.IsStaging())
 {
+
     app.UseSwagger();
-    app.UseSwaggerUI();
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwaggerUI();
+    }
+    else
+    {
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+            options.RoutePrefix = string.Empty;
+        });
+    }
 }
 app.UseHttpsRedirection();
 app.UseAuthentication();
