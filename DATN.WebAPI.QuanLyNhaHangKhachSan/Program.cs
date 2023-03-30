@@ -15,9 +15,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<QuanLyNhaHangKhachSanContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("connectionString")));
-
-
-/// chia khóa---------------------
 builder.Services.AddSwaggerGen(c =>
 {
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
@@ -43,7 +40,6 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
-//---------------------------
 builder.Services.AddTransient<BanDAO, BanDAO>();
 builder.Services.AddTransient<DichVuDAO, DichVuDAO>();
 builder.Services.AddTransient<GoiMonDAO, GoiMonDAO>();
@@ -95,10 +91,8 @@ var app = builder.Build();
 //    app.UseSwagger();
 //    app.UseSwaggerUI();
 //}
-<<<<<<< HEAD
 
-=======
->>>>>>> develop
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction() || app.Environment.IsStaging())
 {
