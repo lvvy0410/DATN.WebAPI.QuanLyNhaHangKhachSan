@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "C+J578B/6vMG2qGFO5NTOOrx2BxP75uI51WFDJagklEQnhfcAW7wIZYFOWtZd61HD/tdrHH0U2AZiHeJyiwauA==",
+=======
+  "dgSpecHash": "d5T/tRMojV6wRckC8x4O1h4ydVBn8PXEheoanuzq8AhjCXjyBB3ceNyvbfvU6CD/suTIuckaaWL7TaRdHEa9KQ==",
+>>>>>>> develop
   "success": true,
   "projectFilePath": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan.csproj",
   "expectedPackageFiles": [
