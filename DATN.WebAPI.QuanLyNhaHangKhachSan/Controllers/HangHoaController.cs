@@ -77,7 +77,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
         }
 
 
-        [HttpPost]
+        [HttpGet]
         [Route("danhsach-HangHoa")]
         public async Task<ActionResult<ResponseDTO>> LayDanhSachHangHoa()
         {
