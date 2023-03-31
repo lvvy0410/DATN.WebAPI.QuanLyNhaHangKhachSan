@@ -1,5 +1,6 @@
 ﻿using DTO.Context;
 using DTO.Model;
+using DTO.Public;
 using JWTAuth.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -49,8 +50,13 @@ namespace JWTAuth.WebApi.Controllers
                         claims,
                         expires: DateTime.UtcNow.AddMinutes(10),
                         signingCredentials: signIn);
+                    var itemToken = new ResponseTokenDTO
+                    {
+                        access_token = new JwtSecurityTokenHandler().WriteToken(token),
+                        token_type = "Bearer token"
+                    };
 
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    return Ok(itemToken);
                 }
                 else
                 {
