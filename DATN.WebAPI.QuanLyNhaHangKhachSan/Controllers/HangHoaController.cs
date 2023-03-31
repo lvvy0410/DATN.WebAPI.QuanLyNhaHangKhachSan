@@ -12,7 +12,7 @@ using System.Net;
 namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/hanghoa")]
     [ApiController]
     public class HangHoaController : Controller
     {
@@ -28,7 +28,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
         }
 
         [HttpGet]
-        [Route("timHangHoa")]
+        [Route("timhanghoa")]
         public async Task<ActionResult<ResponseDTO>> TimHangHoa(int HangHoa)
         {
             ResponseDTO responseDTO = new ResponseDTO();
@@ -78,7 +78,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 
 
         [HttpGet]
-        [Route("danhsach-HangHoa")]
+        [Route("danhsach-hanghoa")]
         public async Task<ActionResult<ResponseDTO>> LayDanhSachHangHoa()
         {
 
@@ -111,7 +111,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
         }
 
         [HttpPost]
-        [Route("Them-HangHoa")]
+        [Route("them-hanghoa")]
         public async Task<ActionResult<HangHoa>> ThemHangHoa(HangHoa HangHoa)
         {
             ResponseDTO responseDTO = new ResponseDTO();
@@ -143,7 +143,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 
         }
         [HttpPost]
-        [Route("CapNhat-HangHoa")]
+        [Route("capnhat-hanghoa")]
         public async Task<ActionResult<HangHoa>> CapNhatHangHoa(HangHoa HangHoa)
         {
             ResponseDTO responseDTO = new ResponseDTO();
@@ -182,7 +182,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
             }
         }
         [HttpDelete]
-        [Route("Xoa-HangHoa")]
+        [Route("xoa-hanghoa")]
         public async Task<ActionResult<HangHoa>> Xoa(int HangHoa)
         {
             ResponseDTO responseDTO = new ResponseDTO();
