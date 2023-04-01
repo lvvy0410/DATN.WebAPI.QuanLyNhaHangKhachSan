@@ -48,12 +48,19 @@ namespace DAO
             }
         }
 
-        public async Task<ErrorMessageDTO> LayDanhSachHH()
+        public async Task<ErrorMessageDTO> LayDanhSachHH(String NhomHangHoa)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                error.data = await dbcontext.HangHoas.ToListAsync();
+                if(NhomHangHoa == null||NhomHangHoa=="")
+                {
+                    error.data = await dbcontext.HangHoas.ToListAsync();
+                }
+                else
+                {
+                    error.data = await dbcontext.HangHoas.Where(p => p.NhomHangHoa.Equals(NhomHangHoa)).ToListAsync();
+                }
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);
             }
