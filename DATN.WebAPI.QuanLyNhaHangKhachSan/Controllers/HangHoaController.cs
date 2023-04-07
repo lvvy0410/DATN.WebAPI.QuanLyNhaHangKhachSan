@@ -79,13 +79,13 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 
         [HttpGet]
         [Route("danhsach-hanghoa")]
-        public async Task<ActionResult<ResponseDTO>> LayDanhSachHangHoa()
+        public async Task<ActionResult<ResponseDTO>> LayDanhSachHangHoa(String? NhomHangHoa)
         {
 
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await HangHoaDAO.LayDanhSachHH();
+                ErrorMessageDTO error = await HangHoaDAO.LayDanhSachHH(NhomHangHoa);
                 if (error.flagBiLoiEx || !error.flagThanhCong)//(error.flagThanhCong == false))
                 {
 

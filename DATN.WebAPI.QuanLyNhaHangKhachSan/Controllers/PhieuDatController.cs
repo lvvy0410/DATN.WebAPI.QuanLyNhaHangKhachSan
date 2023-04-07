@@ -6,6 +6,7 @@ using DTO.Public;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
+using DTO.DieuKienLoc;
 
 namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 {
@@ -26,12 +27,12 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
         }
         [HttpPost]
         [Route("danhsach-PhieuDat")]
-        public async Task<ActionResult<ResponseDTO>> LayDanhSachPhieuDat()
+        public async Task<ActionResult<ResponseDTO>> LayDanhSachPhieuDat(DieuKienLocPhieuDat? obPhieuDat)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await PhieuDatDAO.LayDanhSachPhieuDat();
+                ErrorMessageDTO error = await PhieuDatDAO.LayDanhSachPhieuDat(obPhieuDat);
                 if (error.flagBiLoiEx || !error.flagThanhCong)
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
@@ -55,6 +56,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                 return BadRequest(responseDTO);
             }
         }
+
         [HttpGet]
         [Route("{PhieuDatID}")]
         public async Task<ActionResult<ResponseDTO>> LayPhieuDat(Int32 PhieuDatID)
