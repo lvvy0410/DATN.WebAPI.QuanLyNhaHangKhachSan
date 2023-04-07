@@ -2382,6 +2382,7 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "DAO >= 1.0.0",
+      "DTO >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.14",
       "Microsoft.EntityFrameworkCore >= 6.0.14",
       "Microsoft.EntityFrameworkCore.InMemory >= 6.0.14",
@@ -2425,6 +2426,9 @@
           "projectReferences": {
             "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj": {
               "projectPath": "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj"
+            },
+            "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj": {
+              "projectPath": "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj"
             }
           }
         }

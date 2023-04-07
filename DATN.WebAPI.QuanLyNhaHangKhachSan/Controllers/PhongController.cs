@@ -38,7 +38,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                     responseDTO.statusCode = HttpStatusCode.OK;
                     responseDTO.errorCode = error.errorCode;
                     responseDTO.message = error.message;
-                    
+
                 }
                 if (phong == null)
                 {
@@ -193,7 +193,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                     responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheXoa);
                     return Ok(responseDTO);
                 }
-               
+
 
                 if (phong == null)
                 {
@@ -215,9 +215,167 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                 return BadRequest(responseDTO);
             }
         }
+        [HttpPost]
+        [Route("danhsach-phong-proc")]
+        public async Task<ActionResult<ResponseDTO>> LayDanhSachPhongProc()
+        {
 
+            ResponseDTO responseDTO = new ResponseDTO();
+            try
+            {
+                ErrorMessageDTO error = await phongDAO.LayDanhSachPhongProc();
+                if (error.flagBiLoiEx || !error.flagThanhCong)
+                {
 
+                    responseDTO.errorCode = error.errorCode;
+                    responseDTO.message = error.message;
+                    return Ok(responseDTO);
+                }
 
+                responseDTO.statusCode = HttpStatusCode.OK;
+                responseDTO.message = HttpStatusCode.OK.ToString();
+                responseDTO.data = error.data;
 
+                return Ok(responseDTO);
+            }
+            catch (Exception ex)
+            {
+
+                responseDTO.statusCode = HttpStatusCode.BadRequest;
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
+                responseDTO.message = ex.Message;
+                return BadRequest(responseDTO);
+            }
+        }
+        [HttpPost]
+        [Route("danhsach-phongthuong1g")]
+        public async Task<ActionResult<ResponseDTO>> LayDanhSachPhongThuong1G(int id)
+        {
+
+            ResponseDTO responseDTO = new ResponseDTO();
+            try
+            {
+                ErrorMessageDTO error = await phongDAO.LayDanhSachPhongThuong1G(id);
+                if (error.flagBiLoiEx || !error.flagThanhCong)//(error.flagThanhCong == false))
+                {
+
+                    responseDTO.errorCode = error.errorCode;
+                    responseDTO.message = error.message;
+                    return Ok(responseDTO);
+                }
+
+                responseDTO.statusCode = HttpStatusCode.OK;
+                responseDTO.message = HttpStatusCode.OK.ToString();
+                responseDTO.data = error.data;
+
+                return Ok(responseDTO);
+            }
+            catch (Exception ex)
+            {
+
+                responseDTO.statusCode = HttpStatusCode.BadRequest;
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
+                responseDTO.message = ex.Message;
+                return BadRequest(responseDTO);
+            }
+        }
+        //    [HttpPost]
+        //    [Route("danhsach-phongthuong2g")]
+        //    public async Task<ActionResult<ResponseDTO>> LayDanhSachPhongThuong2G()
+        //    {
+
+        //        ResponseDTO responseDTO = new ResponseDTO();
+        //        try
+        //        {
+        //            ErrorMessageDTO error = await phongDAO.LayDanhSachPhongThuong2G();
+        //            if (error.flagBiLoiEx || !error.flagThanhCong)//(error.flagThanhCong == false))
+        //            {
+
+        //                responseDTO.errorCode = error.errorCode;
+        //                responseDTO.message = error.message;
+        //                return Ok(responseDTO);
+        //            }
+
+        //            responseDTO.statusCode = HttpStatusCode.OK;
+        //            responseDTO.message = HttpStatusCode.OK.ToString();
+        //            responseDTO.data = error.data;
+
+        //            return Ok(responseDTO);
+        //        }
+        //        catch (Exception ex)
+        //        {
+
+        //            responseDTO.statusCode = HttpStatusCode.BadRequest;
+        //            responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
+        //            responseDTO.message = ex.Message;
+        //            return BadRequest(responseDTO);
+        //        }
+        //    }
+        //    [HttpPost]
+        //    [Route("danhsach-phongvip1g")]
+        //    public async Task<ActionResult<ResponseDTO>> LayDanhSachPhongVip1G()
+        //    {
+
+        //        ResponseDTO responseDTO = new ResponseDTO();
+        //        try
+        //        {
+        //            ErrorMessageDTO error = await phongDAO.LayDanhSachPhongVip1G();
+        //            if (error.flagBiLoiEx || !error.flagThanhCong)//(error.flagThanhCong == false))
+        //            {
+
+        //                responseDTO.errorCode = error.errorCode;
+        //                responseDTO.message = error.message;
+        //                return Ok(responseDTO);
+        //            }
+
+        //            responseDTO.statusCode = HttpStatusCode.OK;
+        //            responseDTO.message = HttpStatusCode.OK.ToString();
+        //            responseDTO.data = error.data;
+
+        //            return Ok(responseDTO);
+        //        }
+        //        catch (Exception ex)
+        //        {
+
+        //            responseDTO.statusCode = HttpStatusCode.BadRequest;
+        //            responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
+        //            responseDTO.message = ex.Message;
+        //            return BadRequest(responseDTO);
+        //        }
+        //    }
+        //    [HttpPost]
+        //    [Route("danhsach-phongvip2g")]
+        //    public async Task<ActionResult<ResponseDTO>> LayDanhSachPhongVip2G()
+        //    {
+
+        //        ResponseDTO responseDTO = new ResponseDTO();
+        //        try
+        //        {
+        //            ErrorMessageDTO error = await phongDAO.LayDanhSachPhongVip2G();
+        //            if (error.flagBiLoiEx || !error.flagThanhCong)//(error.flagThanhCong == false))
+        //            {
+
+        //                responseDTO.errorCode = error.errorCode;
+        //                responseDTO.message = error.message;
+        //                return Ok(responseDTO);
+        //            }
+
+        //            responseDTO.statusCode = HttpStatusCode.OK;
+        //            responseDTO.message = HttpStatusCode.OK.ToString();
+        //            responseDTO.data = error.data;
+
+        //            return Ok(responseDTO);
+        //        }
+        //        catch (Exception ex)
+        //        {
+
+        //            responseDTO.statusCode = HttpStatusCode.BadRequest;
+        //            responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
+        //            responseDTO.message = ex.Message;
+        //            return BadRequest(responseDTO);
+        //        }
+        //    }
+
+        //}
     }
 }

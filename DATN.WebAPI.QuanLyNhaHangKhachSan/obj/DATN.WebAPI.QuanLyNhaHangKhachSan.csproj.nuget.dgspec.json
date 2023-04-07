@@ -121,6 +121,9 @@
             "projectReferences": {
               "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj": {
                 "projectPath": "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj"
+              },
+              "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj": {
+                "projectPath": "C:\\dulieucanhan\\thực tập\\api\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj"
               }
             }
           }
