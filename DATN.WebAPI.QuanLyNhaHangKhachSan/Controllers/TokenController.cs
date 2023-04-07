@@ -1,7 +1,9 @@
 ﻿using DTO.Context;
 using DTO.Model;
+using DTO.Public;
+
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -36,8 +38,8 @@ namespace JWTAuth.WebApi.Controllers
                         new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                   
-                     
+
+
                     };
 
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -48,8 +50,13 @@ namespace JWTAuth.WebApi.Controllers
                         claims,
                         expires: DateTime.UtcNow.AddMinutes(10),
                         signingCredentials: signIn);
+                    var itemToken = new ResponseTokenDTO
+                    {
+                        access_token = new JwtSecurityTokenHandler().WriteToken(token),
+                        token_type = "Bearer token"
+                    };
 
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    return Ok(itemToken);
                 }
                 else
                 {
@@ -69,7 +76,7 @@ namespace JWTAuth.WebApi.Controllers
                 NguoiDungAPI nguoiDungAPI = new NguoiDungAPI();
                 nguoiDungAPI.userName = "admin";
                 nguoiDungAPI.pass = "123456";
-                if ( user== nguoiDungAPI.userName && pass == nguoiDungAPI.pass)
+                if (user == nguoiDungAPI.userName && pass == nguoiDungAPI.pass)
                 {
                     return nguoiDungAPI;
                 }
