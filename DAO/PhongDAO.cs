@@ -28,7 +28,7 @@ namespace DAO
             try
             {
                 Phong? item = dbcontext.Phongs.Where(p => p.PhongId == phong).FirstOrDefault();
-               
+
 
                 error.data = item;
                 error.flagThanhCong = true;
@@ -68,7 +68,7 @@ namespace DAO
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-               
+
                 error.flagThanhCong = true;
                 dbcontext.Phongs.Add(phong);
                 dbcontext.SaveChanges();
@@ -91,7 +91,7 @@ namespace DAO
             Phong? item = dbcontext.Phongs.Where(p => p.PhongId == phong.PhongId).FirstOrDefault();
             try
             {
-               
+
                 error.flagThanhCong = true;
                 item.LoaiPhongId = phong.LoaiPhongId;
                 item.TrangThaiId = phong.TrangThaiId;
@@ -124,7 +124,7 @@ namespace DAO
             Phong? item = dbcontext.Phongs.Where(p => p.PhongId == phong).FirstOrDefault();
             try
             {
-                
+
 
                 dbcontext.Remove(item);
                 error.data = await dbcontext.SaveChangesAsync();
@@ -150,9 +150,8 @@ namespace DAO
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                error.data = await dbcontext.Phongs.FromSqlRaw("locPhong").ToListAsync();
-               
-              
+                error.data = await dbcontext.Phongs.FromSqlRaw("dsphong").ToListAsync();
+
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);
             }
@@ -165,31 +164,13 @@ namespace DAO
             }
         }
 
-        public async Task<ErrorMessageDTO> LayDanhSachPhongThuong1G()
-        {
-            ErrorMessageDTO error = new ErrorMessageDTO();
-            try
-            {
-               
-                error.data = await dbcontext.Phongs.Where(p => p.LoaiPhongId ==1).ToListAsync();
-                error.flagThanhCong = true;
-                return await Task.FromResult(error);
-            }
-            catch (Exception ex)
-            {
-                error.flagBiLoiEx = true;
-                error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
-                error.message = ex.Message;
-                return await Task.FromResult(error);
-            }
-        }
-        public async Task<ErrorMessageDTO> LayDanhSachPhongThuong2G()
+        public async Task<ErrorMessageDTO> LayDanhSachPhongThuong1G(int id)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
 
-                error.data = await dbcontext.Phongs.Where(p => p.LoaiPhongId == 2).ToListAsync();
+                error.data = await dbcontext.Phongs.Where(p => p.LoaiPhongId == id).ToListAsync();
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);
             }
@@ -201,41 +182,60 @@ namespace DAO
                 return await Task.FromResult(error);
             }
         }
-        public async Task<ErrorMessageDTO> LayDanhSachPhongVip1G()
-        {
-            ErrorMessageDTO error = new ErrorMessageDTO();
-            try
-            {
+        //    public async Task<ErrorMessageDTO> LayDanhSachPhongThuong2G()
+        //    {
+        //        ErrorMessageDTO error = new ErrorMessageDTO();
+        //        try
+        //        {
 
-                error.data = await dbcontext.Phongs.Where(p => p.LoaiPhongId == 3).ToListAsync();
-                error.flagThanhCong = true;
-                return await Task.FromResult(error);
-            }
-            catch (Exception ex)
-            {
-                error.flagBiLoiEx = true;
-                error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
-                error.message = ex.Message;
-                return await Task.FromResult(error);
-            }
-        }
-        public async Task<ErrorMessageDTO> LayDanhSachPhongVip2G()
-        {
-            ErrorMessageDTO error = new ErrorMessageDTO();
-            try
-            {
+        //            error.data = await dbcontext.Phongs.Where(p => p.LoaiPhongId == 2).ToListAsync();
+        //            error.flagThanhCong = true;
+        //            return await Task.FromResult(error);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            error.flagBiLoiEx = true;
+        //            error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
+        //            error.message = ex.Message;
+        //            return await Task.FromResult(error);
+        //        }
+        //    }
+        //    public async Task<ErrorMessageDTO> LayDanhSachPhongVip1G()
+        //    {
+        //        ErrorMessageDTO error = new ErrorMessageDTO();
+        //        try
+        //        {
 
-                error.data = await dbcontext.Phongs.Where(p => p.LoaiPhongId == 4).ToListAsync();
-                error.flagThanhCong = true;
-                return await Task.FromResult(error);
-            }
-            catch (Exception ex)
-            {
-                error.flagBiLoiEx = true;
-                error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
-                error.message = ex.Message;
-                return await Task.FromResult(error);
-            }
-        }
+        //            error.data = await dbcontext.Phongs.Where(p => p.LoaiPhongId == 3).ToListAsync();
+        //            error.flagThanhCong = true;
+        //            return await Task.FromResult(error);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            error.flagBiLoiEx = true;
+        //            error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
+        //            error.message = ex.Message;
+        //            return await Task.FromResult(error);
+        //        }
+        //    }
+        //    public async Task<ErrorMessageDTO> LayDanhSachPhongVip2G()
+        //    {
+        //        ErrorMessageDTO error = new ErrorMessageDTO();
+        //        try
+        //        {
+
+        //            error.data = await dbcontext.Phongs.Where(p => p.LoaiPhongId == 4).ToListAsync();
+        //            error.flagThanhCong = true;
+        //            return await Task.FromResult(error);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            error.flagBiLoiEx = true;
+        //            error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
+        //            error.message = ex.Message;
+        //            return await Task.FromResult(error);
+        //        }
+        //    }
+        //}
     }
 }
