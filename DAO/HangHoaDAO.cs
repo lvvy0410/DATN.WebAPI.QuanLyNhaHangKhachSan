@@ -48,7 +48,7 @@ namespace DAO
             }
         }
 
-        public async Task<ErrorMessageDTO> LayDanhSachHH(String NhomHangHoa)
+        public async Task<ErrorMessageDTO> LayDanhSachHH(String? NhomHangHoa)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
