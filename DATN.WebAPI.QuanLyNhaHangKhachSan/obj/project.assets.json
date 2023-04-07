@@ -2382,6 +2382,7 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "DAO >= 1.0.0",
+      "DTO >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.14",
       "Microsoft.EntityFrameworkCore >= 6.0.14",
       "Microsoft.EntityFrameworkCore.InMemory >= 6.0.14",
@@ -2426,6 +2427,9 @@
           "projectReferences": {
             "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj": {
               "projectPath": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DAO\\DAO.csproj"
+            },
+            "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj": {
+              "projectPath": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DTO\\DTO.csproj"
             }
           }
         }
@@ -2493,5 +2497,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

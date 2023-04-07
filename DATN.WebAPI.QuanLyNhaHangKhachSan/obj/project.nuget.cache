@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "d5T/tRMojV6wRckC8x4O1h4ydVBn8PXEheoanuzq8AhjCXjyBB3ceNyvbfvU6CD/suTIuckaaWL7TaRdHEa9KQ==",
+  "dgSpecHash": "C+J578B/6vMG2qGFO5NTOOrx2BxP75uI51WFDJagklEQnhfcAW7wIZYFOWtZd61HD/tdrHH0U2AZiHeJyiwauA==",
   "success": true,
   "projectFilePath": "D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan.csproj",
   "expectedPackageFiles": [
@@ -57,5 +57,12 @@
     "C:\\Users\\ThanhLen\\.nuget\\packages\\system.text.encoding.codepages\\4.7.0\\system.text.encoding.codepages.4.7.0.nupkg.sha512",
     "C:\\Users\\ThanhLen\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file D:\\DOAN-TN\\DATN.WebAPI.QuanLyNhaHangKhachSan\\DATN.WebAPI.QuanLyNhaHangKhachSan\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

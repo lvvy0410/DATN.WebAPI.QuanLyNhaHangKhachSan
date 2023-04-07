@@ -9,6 +9,7 @@
       "DATN.WebAPI.QuanLyNhaHangKhachSan/1.0.0": {
         "dependencies": {
           "DAO": "1.0.0",
+          "DTO": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.14",
           "Microsoft.EntityFrameworkCore": "6.0.14",
           "Microsoft.EntityFrameworkCore.InMemory": "6.0.14",
