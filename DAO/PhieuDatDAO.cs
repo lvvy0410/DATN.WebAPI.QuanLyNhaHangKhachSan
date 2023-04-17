@@ -26,7 +26,7 @@ namespace DAO
             try
             {
                 error.data = await dbcontext.PhieuDats.FromSqlRaw($"LayDanhSachPhieuDat '{obPhieuDat.PhieuDatId}', '{obPhieuDat.SoChungTu}'," +
-                    $"'{obPhieuDat.LoaiPhieuId}', '{obPhieuDat.KhachHangId}', N'{obPhieuDat.TrangThai}'").ToListAsync();
+                    $"'{obPhieuDat.LoaiPhieuId}', '{obPhieuDat.KhachHangId}'").ToListAsync();
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);
             }

@@ -93,8 +93,14 @@ namespace DAO
             {
 
                 error.flagThanhCong = true;
+                item.LoaiPhongId = phong.LoaiPhongId;
                 item.TrangThaiId = phong.TrangThaiId;
-                error.data =  await dbcontext.SaveChangesAsync();
+                item.SoPhong = phong.SoPhong;
+                item.Tang = phong.Tang;
+
+
+                await dbcontext.SaveChangesAsync();
+                error.data = item;
 
                 error.errorCode = Convert.ToInt32(ErrorCodeEnum.NoError).ToString();
                 error.message = ResponseDTO.GetValueError(ErrorCodeEnum.CapNhatThanhCong);

@@ -106,7 +106,7 @@ namespace DAO
                     error.flagThanhCong = false;
                     return await Task.FromResult(error);
                 }
-                obPhieuDatPhongChiTietId.SoLuong = obPhieuDatPhongChiTiet.SoLuong;
+                obPhieuDatPhongChiTietId.SoNguoi = obPhieuDatPhongChiTiet.SoNguoi;
                 error.data = await dbcontext.SaveChangesAsync();
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);

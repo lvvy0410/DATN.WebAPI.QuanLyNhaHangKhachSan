@@ -12,6 +12,5 @@ namespace DTO.DieuKienLoc
         public string? SoChungTu { get;set; }
         public int? LoaiPhieuId { get; set; }
         public long? KhachHangId { get; set; }
-        public string? TrangThai { get; set; }
     }
 }

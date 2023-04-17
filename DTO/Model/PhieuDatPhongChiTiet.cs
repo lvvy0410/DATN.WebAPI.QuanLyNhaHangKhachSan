@@ -7,8 +7,8 @@ namespace DTO.Model
     {
         public long PhieuDatPhongChiTietId { get; set; }
         public long PhieuDatId { get; set; }
-        public int LoaiPhongId { get; set; }
-        public int SoLuong { get; set; }
+        public int PhongId { get; set; }
+        public int SoNguoi { get; set; }
 
         public virtual PhieuDat PhieuDat { get; set; } = null!;
         public virtual Phong Phong { get; set; } = null!;
