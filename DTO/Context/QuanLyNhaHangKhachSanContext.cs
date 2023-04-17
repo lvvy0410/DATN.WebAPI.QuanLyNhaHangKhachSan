@@ -17,8 +17,7 @@ namespace DTO.Context
         {
         }
 
-        public virtual DbSet<Ban> Bans { get; set; } = null!;  
-        public virtual DbSet<DsTheoLoaiPhongTam> DsTheoLoaiPhongTams { get; set; } = null!;
+        public virtual DbSet<Ban> Bans { get; set; } = null!;
         public virtual DbSet<DichVu> DichVus { get; set; } = null!;
         public virtual DbSet<GoiMon> GoiMons { get; set; } = null!;
         public virtual DbSet<HangHoa> HangHoas { get; set; } = null!;
@@ -55,10 +54,6 @@ namespace DTO.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<DsTheoLoaiPhongTam>().HasNoKey();
-
             modelBuilder.Entity<Ban>(entity =>
             {
                 entity.ToTable("Ban");
