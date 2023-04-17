@@ -121,8 +121,8 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                 }
 
                 responseDTO.statusCode = HttpStatusCode.OK;
-                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.ThemThanhCong).ToString();
                 responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.ThemThanhCong);
+                responseDTO.data = error.data;
                 return Ok(responseDTO);
             }
             catch (Exception ex)
