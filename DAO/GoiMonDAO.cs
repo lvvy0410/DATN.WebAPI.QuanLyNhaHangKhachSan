@@ -1,6 +1,7 @@
 ﻿using DTO.Context;
 using DTO.Model;
 using DTO.Public;
+using DTO.publicDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -66,35 +67,36 @@ namespace DAO
             }
         }
 
-        public async Task<ErrorMessageDTO> ThemGM(GoiMon gm)
+        public async Task<ErrorMessageDTO> ThemGM(GoiMonDTO gm)
         {
-
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
+
                 if (error.flagBiLoiEx)
                 {
                     error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
                     error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
+                    error.flagThanhCong = false;
                     return await Task.FromResult(error);
                 }
-                error.flagThanhCong = true;
                 dbcontext.GoiMons.Add(gm);
-                dbcontext.SaveChanges();
+                error.data = await dbcontext.SaveChangesAsync();
+                error.flagThanhCong = true;
                 return await Task.FromResult(error);
 
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                error.flagBiLoiEx = true;
                 error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
-                error.message = ResponseDTO.GetValueError(ErrorCodeEnum.InternalServerError).ToString();
+                error.message = ResponseDTO.GetValueError(ErrorCodeEnum.InternalServerError);
+                error.flagBiLoiEx = true;
                 return await Task.FromResult(error);
             }
-
         }
 
-        public async Task<ErrorMessageDTO> CapNhatGM(GoiMon gm)
+        public async Task<ErrorMessageDTO> CapNhatGM(GoiMonDTO gm)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             GoiMon? item = dbcontext.GoiMons.Where(p => p.GoiMonId == gm.GoiMonId).FirstOrDefault();
@@ -111,14 +113,12 @@ namespace DAO
                 item.BanId = gm.BanId;
                 item.HangHoaId = gm.HangHoaId;
                 item.PhieuNhanId = gm.PhieuNhanId;
-
                 item.SoLuong = gm.SoLuong;
                 item.DonGia = gm.DonGia;
                 item.ThanhTien = gm.ThanhTien;
                 item.GhiChu = gm.GhiChu;
-
                 item.TrangThai = gm.TrangThai;
-                item.ThoiGian = gm.ThoiGian;
+                ;
                 await dbcontext.SaveChangesAsync();
                 error.data = item;
 
@@ -172,3 +172,4 @@ namespace DAO
         }
     }
 }
+

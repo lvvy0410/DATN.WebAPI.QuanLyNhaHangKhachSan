@@ -1,6 +1,7 @@
 ﻿using DTO.Context;
 using DTO.Model;
 using DTO.Public;
+using DTO.publicDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -66,35 +67,36 @@ namespace DAO
             }
         }
 
-        public async Task<ErrorMessageDTO> ThemDV(DichVu dv)
+        public async Task<ErrorMessageDTO> ThemDV(DichVuDTO dichvu)
         {
-
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
+
                 if (error.flagBiLoiEx)
                 {
                     error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
                     error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
+                    error.flagThanhCong = false;
                     return await Task.FromResult(error);
                 }
+                dbcontext.DichVus.Add(dichvu);
+                error.data = await dbcontext.SaveChangesAsync();
                 error.flagThanhCong = true;
-                dbcontext.DichVus.Add(dv);
-                dbcontext.SaveChanges();
                 return await Task.FromResult(error);
 
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                error.flagBiLoiEx = true;
                 error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
-                error.message = ResponseDTO.GetValueError(ErrorCodeEnum.InternalServerError).ToString();
+                error.message = ResponseDTO.GetValueError(ErrorCodeEnum.InternalServerError);
+                error.flagBiLoiEx = true;
                 return await Task.FromResult(error);
             }
-
         }
 
-        public async Task<ErrorMessageDTO> CapNhatDV(DichVu dv)
+        public async Task<ErrorMessageDTO> CapNhatDV(DichVuDTO dv)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             DichVu? item = dbcontext.DichVus.Where(p => p.DichVuId == dv.DichVuId).FirstOrDefault();
@@ -111,14 +113,12 @@ namespace DAO
                 item.BanId = dv.BanId;
                 item.HangHoaId = dv.HangHoaId;
                 item.PhieuNhanId = dv.PhieuNhanId;
-
                 item.SoLuong = dv.SoLuong;
                 item.DonGia = dv.DonGia;
                 item.ThanhTien = dv.ThanhTien;
                 item.GhiChu = dv.GhiChu;
-               
                 item.TrangThai = dv.TrangThai;
-                item.ThoiGian = dv.ThoiGian   ;
+             ;
                 await dbcontext.SaveChangesAsync();
                 error.data = item;
 

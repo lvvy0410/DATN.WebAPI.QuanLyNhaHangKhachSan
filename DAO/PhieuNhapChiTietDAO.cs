@@ -53,20 +53,13 @@ namespace DAO
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                try
-                {
+               error.flagThanhCong = true;
                     dbcontext.PhieuNhapChiTiets.Add(obPhieuNhapChiTiet);
                     error.data = await dbcontext.SaveChangesAsync();
-                    error.flagThanhCong = true;
+                   
                     return await Task.FromResult(error);
-                }
-                catch
-                {
-                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
-                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
-                    error.flagThanhCong = false;
-                    return await Task.FromResult(error);
-                }
+                
+               
             }
             catch (Exception ex)
             {
