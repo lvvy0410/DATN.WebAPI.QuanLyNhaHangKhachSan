@@ -13,8 +13,8 @@ namespace DTO.Model
         public double SoLuong { get; set; }
         public double DonGia { get; set; }
         public double ThanhTien { get; set; }
-        public string GhiChu { get; set; } = null!;
-        public string TrangThai { get; set; } = null!;
+        public string GhiChu { get; set; }
+        public string TrangThai { get; set; }
         public DateTime ThoiGian { get; set; }
 
         public virtual Ban? Ban { get; set; }
