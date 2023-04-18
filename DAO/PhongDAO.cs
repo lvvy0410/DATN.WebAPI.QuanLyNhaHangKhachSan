@@ -71,7 +71,7 @@ namespace DAO
 
                 error.flagThanhCong = true;
                 dbcontext.Phongs.Add(phong);
-                dbcontext.SaveChanges();
+               await dbcontext.SaveChangesAsync();
                 return await Task.FromResult(error);
 
             }
@@ -93,10 +93,9 @@ namespace DAO
             {
 
                 error.flagThanhCong = true;
-                item.LoaiPhongId = phong.LoaiPhongId;
+            
                 item.TrangThaiId = phong.TrangThaiId;
-                item.SoPhong = phong.SoPhong;
-                item.Tang = phong.Tang;
+              
 
 
                 await dbcontext.SaveChangesAsync();

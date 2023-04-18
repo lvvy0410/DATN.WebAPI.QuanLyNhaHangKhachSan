@@ -11,7 +11,7 @@ namespace DTO.Model
         }
 
         public long PhieuNhapId { get; set; }
-        public string SoChungtu { get; set; } = null!;
+        public string? SoChungtu { get; set; }
         public DateTime NgayLap { get; set; }
         public int NguoiDungId { get; set; }
         public long? KhachHangId { get; set; }

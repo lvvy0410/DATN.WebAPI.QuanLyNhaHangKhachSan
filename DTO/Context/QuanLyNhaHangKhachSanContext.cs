@@ -43,6 +43,11 @@ namespace DTO.Context
         public virtual DbSet<TrangThai> TrangThais { get; set; } = null!;
         public virtual DbSet<TrangThietBi> TrangThietBis { get; set; } = null!;
 
+        public Task<dynamic> SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
