@@ -17,8 +17,7 @@ namespace DTO.Context
         {
         }
 
-        public virtual DbSet<Ban> Bans { get; set; } = null!;  
-        public virtual DbSet<DsTheoLoaiPhongTam> DsTheoLoaiPhongTams { get; set; } = null!;
+        public virtual DbSet<Ban> Bans { get; set; } = null!;
         public virtual DbSet<DichVu> DichVus { get; set; } = null!;
         public virtual DbSet<GoiMon> GoiMons { get; set; } = null!;
         public virtual DbSet<HangHoa> HangHoas { get; set; } = null!;
@@ -60,10 +59,6 @@ namespace DTO.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<DsTheoLoaiPhongTam>().HasNoKey();
-
             modelBuilder.Entity<Ban>(entity =>
             {
                 entity.ToTable("Ban");
@@ -208,7 +203,7 @@ namespace DTO.Context
 
                 entity.Property(e => e.NgaySinh).HasColumnType("date");
 
-                entity.Property(e => e.NoiThuongTru).HasMaxLength(50);
+                entity.Property(e => e.NoiThuongTru).HasMaxLength(500);
 
                 entity.Property(e => e.QueQuan).HasMaxLength(50);
 
@@ -374,6 +369,10 @@ namespace DTO.Context
 
                 entity.Property(e => e.PhieuDatId).HasColumnName("PhieuDatID");
 
+                entity.Property(e => e.ThoiGianNhanDuKien).HasColumnType("datetime");
+
+                entity.Property(e => e.TrangThai).HasMaxLength(50);
+
                 entity.HasOne(d => d.Ban)
                     .WithMany(p => p.PhieuDatBanChiTiets)
                     .HasForeignKey(d => d.BanId)
@@ -393,21 +392,27 @@ namespace DTO.Context
 
                 entity.Property(e => e.PhieuDatPhongChiTietId).HasColumnName("PhieuDatPhongChiTietID");
 
+                entity.Property(e => e.LoaiPhongId).HasColumnName("LoaiPhongID");
+
                 entity.Property(e => e.PhieuDatId).HasColumnName("PhieuDatID");
 
-                entity.Property(e => e.PhongId).HasColumnName("PhongID");
+                entity.Property(e => e.ThoiGianNhanDuKien).HasColumnType("datetime");
+
+                entity.Property(e => e.ThoiGianTraDuKien).HasColumnType("datetime");
+
+                entity.Property(e => e.TrangThai).HasMaxLength(50);
+
+                entity.HasOne(d => d.LoaiPhong)
+                    .WithMany(p => p.PhieuDatPhongChiTiets)
+                    .HasForeignKey(d => d.LoaiPhongId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PhieuDatPhongChiTiet_Phong");
 
                 entity.HasOne(d => d.PhieuDat)
                     .WithMany(p => p.PhieuDatPhongChiTiets)
                     .HasForeignKey(d => d.PhieuDatId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PhieuDatPhongChiTiet_PhieuDat");
-
-                entity.HasOne(d => d.Phong)
-                    .WithMany(p => p.PhieuDatPhongChiTiets)
-                    .HasForeignKey(d => d.PhongId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PhieuDatPhongChiTiet_Phong");
             });
 
             modelBuilder.Entity<PhieuNhan>(entity =>
@@ -701,6 +706,8 @@ namespace DTO.Context
                 entity.Property(e => e.MaTrangThai)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.Property(e => e.NhomTrangThai).HasMaxLength(50);
 
                 entity.Property(e => e.TenTrangThai).HasMaxLength(50);
             });

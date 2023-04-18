@@ -9,7 +9,6 @@ namespace DTO.Model
         {
             DichVus = new HashSet<DichVu>();
             GoiMons = new HashSet<GoiMon>();
-            PhieuDatPhongChiTiets = new HashSet<PhieuDatPhongChiTiet>();
             PhieuNhanPhongChiTiets = new HashSet<PhieuNhanPhongChiTiet>();
             TrangThietBis = new HashSet<TrangThietBi>();
         }
@@ -24,7 +23,6 @@ namespace DTO.Model
         public virtual TrangThai TrangThai { get; set; } = null!;
         public virtual ICollection<DichVu> DichVus { get; set; }
         public virtual ICollection<GoiMon> GoiMons { get; set; }
-        public virtual ICollection<PhieuDatPhongChiTiet> PhieuDatPhongChiTiets { get; set; }
         public virtual ICollection<PhieuNhanPhongChiTiet> PhieuNhanPhongChiTiets { get; set; }
         public virtual ICollection<TrangThietBi> TrangThietBis { get; set; }
     }

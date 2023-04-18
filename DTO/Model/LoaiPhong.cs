@@ -7,6 +7,7 @@ namespace DTO.Model
     {
         public LoaiPhong()
         {
+            PhieuDatPhongChiTiets = new HashSet<PhieuDatPhongChiTiet>();
             Phongs = new HashSet<Phong>();
         }
 
@@ -16,6 +17,7 @@ namespace DTO.Model
         public int SoNguoiToiDa { get; set; }
         public double? DonGia { get; set; }
 
+        public virtual ICollection<PhieuDatPhongChiTiet> PhieuDatPhongChiTiets { get; set; }
         public virtual ICollection<Phong> Phongs { get; set; }
     }
 }
