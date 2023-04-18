@@ -71,7 +71,7 @@ namespace DAO
 
                 error.flagThanhCong = true;
                 dbcontext.Phongs.Add(phong);
-                dbcontext.SaveChanges();
+               await dbcontext.SaveChangesAsync();
                 return await Task.FromResult(error);
 
             }

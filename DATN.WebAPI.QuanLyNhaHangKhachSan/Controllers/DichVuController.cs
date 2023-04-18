@@ -8,29 +8,31 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
-{   [Authorize]
-        [Route("api/[controller]")]
-        [ApiController]
-    public class PhieuNhapChiTietController : Controller
+{
+    [Authorize]
+    [Route("api/hanghoa")]
+    [ApiController]
+    public class DichVuController : ControllerBase
     {
         private readonly QuanLyNhaHangKhachSanContext dbcontext;
-        private readonly PhieuNhapChiTietDAO phieuNhapChiTietDAO;
+        private readonly DichVuDAO dichVuDAO;
 
 
-        public PhieuNhapChiTietController(QuanLyNhaHangKhachSanContext dbcontext, PhieuNhapChiTietDAO phieuNhapChiTietDAO)
+        public DichVuController(QuanLyNhaHangKhachSanContext dbcontext, DichVuDAO dichVuDAO)
         {
             this.dbcontext = dbcontext;
-            this.phieuNhapChiTietDAO = phieuNhapChiTietDAO;
+            this.dichVuDAO = dichVuDAO;
 
         }
+
         [HttpGet]
-        [Route("layPhieuNhapChiTiet")]
-        public async Task<ActionResult<ResponseDTO>> LayPNCT(int phieuNhapChiTietID)
+        [Route("timdichvu")]
+        public async Task<ActionResult<ResponseDTO>> Tim(int dichvu)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await phieuNhapChiTietDAO.LayPhieuNhapChiTiet(phieuNhapChiTietID);
+                ErrorMessageDTO error = await dichVuDAO.TimDV(dichvu);
                 if (error.flagBiLoiEx || !error.flagThanhCong)//(error.flagThanhCong == false))
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
@@ -38,7 +40,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                     responseDTO.message = error.message;
 
                 }
-                if (phieuNhapChiTietID == null)
+                if (dichvu == null)
                 {
                     error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
                     error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
@@ -49,7 +51,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
                     //responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnumDTO.NotFound).ToString();
-                    //responseDTO.message = "Phongng tim thay san pham";
+                    //responseDTO.message = "HangHoang tim thay san pham";
                     responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
                     responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
                     return Ok(responseDTO);
@@ -57,7 +59,39 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 
                 responseDTO.statusCode = HttpStatusCode.OK;
                 responseDTO.message = HttpStatusCode.OK.ToString();
-                responseDTO.errorCode = HttpStatusCode.OK.ToString();
+                responseDTO.data = error.data;
+                return　Ok(responseDTO);
+            }
+            catch (Exception ex)
+            {
+
+                responseDTO.statusCode = HttpStatusCode.BadRequest;
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
+                responseDTO.message = ex.Message;
+                return BadRequest(responseDTO);
+            }
+        }
+
+
+        [HttpGet]
+        [Route("danhsach-dichvu")]
+        public async Task<ActionResult<ResponseDTO>> LayDanhSachGoiMon()
+        {
+
+            ResponseDTO responseDTO = new ResponseDTO();
+            try
+            {
+                ErrorMessageDTO error = await dichVuDAO.LayDanhSachDV();
+                if (error.flagBiLoiEx || !error.flagThanhCong)//(error.flagThanhCong == false))
+                {
+
+                    responseDTO.errorCode = error.errorCode;
+                    responseDTO.message = error.message;
+                    return Ok(responseDTO);
+                }
+
+                responseDTO.statusCode = HttpStatusCode.OK;
+                responseDTO.message = HttpStatusCode.OK.ToString();
                 responseDTO.data = error.data;
 
                 return Ok(responseDTO);
@@ -72,22 +106,19 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
             }
         }
 
-
-  
-
         [HttpPost]
-        [Route("Them-PNCT")]
-        public async Task<ActionResult<PhieuNhapChiTiet>> ThemPhieuNhapCHiTiet(PhieuNhapChiTietDTO phieuNhapCT)
+        [Route("them-dichvu")]
+        public async Task<ActionResult<DichVu>> ThemDuchVu(DichVuDTO dichVu)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await phieuNhapChiTietDAO.ThemPhieuNhapChiTiet(phieuNhapCT);
+                ErrorMessageDTO error = await dichVuDAO.ThemDV(dichVu);
                 if (error.flagBiLoiEx)
                 {
 
                     responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
-                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
+                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheXoa);
                     return Ok(responseDTO);
                 }
 
@@ -107,18 +138,18 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 
         }
         [HttpPost]
-        [Route("CapNhat-PNCT")]
-        public async Task<ActionResult<PhieuNhapChiTiet>> CapNhatPhong(PhieuNhapChiTietDTO phieuNhapCT)
+        [Route("capnhat-dichvu")]
+        public async Task<ActionResult<DichVu>> CapNhatDichVu(DichVuDTO dichvu)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await phieuNhapChiTietDAO.CapNhatPhieuNhapChiTiet(phieuNhapCT);
+                ErrorMessageDTO error = await dichVuDAO.CapNhatDV(dichvu);
                 if (error.flagBiLoiEx || !error.flagThanhCong)
                 {
 
                     responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheCapNhat).ToString();
-                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
+                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheCapNhat);
                     return Ok(responseDTO);
 
                 }
@@ -146,13 +177,13 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
             }
         }
         [HttpDelete]
-        [Route("Xoa-PNCT")]
-        public async Task<ActionResult<PhieuNhapChiTiet>> Xoa(int pnCT)
+        [Route("xoa-dichvu")]
+        public async Task<ActionResult<DichVu>> Xoa(int dichvu)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await phieuNhapChiTietDAO.XoaPhieuNhapChiTiet(pnCT);
+                ErrorMessageDTO error = await dichVuDAO.Xoa(dichvu);
                 if (error.flagBiLoiEx)
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
@@ -160,14 +191,13 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                     responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheXoa);
                     return Ok(responseDTO);
                 }
-
-
-                if (pnCT == null)
+                if (dichvu == null)
                 {
                     error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
                     error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
                     return Ok(responseDTO);
                 }
+
                 responseDTO.statusCode = HttpStatusCode.OK;
                 responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.XoaThanhCong).ToString();
                 responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.XoaThanhCong);
@@ -182,6 +212,5 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                 return BadRequest(responseDTO);
             }
         }
-       
     }
 }
