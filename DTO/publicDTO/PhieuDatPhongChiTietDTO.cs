@@ -12,5 +12,6 @@ namespace DTO.publicDTO
         public virtual PhieuDat? PhieuDat { get; set; }
 
         public virtual LoaiPhong? LoaiPhong { get; set; }
+        //sửa loại phòng
     }
 }

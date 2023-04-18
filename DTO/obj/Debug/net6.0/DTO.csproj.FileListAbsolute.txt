@@ -12,31 +12,3 @@ C:\dulieucanhan\thực tập\api\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug
 C:\dulieucanhan\thực tập\api\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.pdb
 C:\dulieucanhan\thực tập\api\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.genruntimeconfig.cache
 C:\dulieucanhan\thực tập\api\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\ref\DTO.dll
-D:\ThucTapTN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\bin\Debug\net6.0\DTO.deps.json
-D:\ThucTapTN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\bin\Debug\net6.0\DTO.runtimeconfig.json
-D:\ThucTapTN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\bin\Debug\net6.0\DTO.dll
-D:\ThucTapTN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\bin\Debug\net6.0\DTO.pdb
-D:\ThucTapTN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.csproj.AssemblyReference.cache
-D:\ThucTapTN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.GeneratedMSBuildEditorConfig.editorconfig
-D:\ThucTapTN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.AssemblyInfoInputs.cache
-D:\ThucTapTN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.AssemblyInfo.cs
-D:\ThucTapTN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.csproj.CoreCompileInputs.cache
-D:\ThucTapTN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.dll
-D:\ThucTapTN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\refint\DTO.dll
-D:\ThucTapTN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.pdb
-D:\ThucTapTN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.genruntimeconfig.cache
-D:\ThucTapTN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\ref\DTO.dll
-D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\bin\Debug\net6.0\DTO.deps.json
-D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\bin\Debug\net6.0\DTO.runtimeconfig.json
-D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\bin\Debug\net6.0\DTO.dll
-D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\bin\Debug\net6.0\DTO.pdb
-D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.csproj.AssemblyReference.cache
-D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.GeneratedMSBuildEditorConfig.editorconfig
-D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.AssemblyInfoInputs.cache
-D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.AssemblyInfo.cs
-D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.csproj.CoreCompileInputs.cache
-D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.dll
-D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\refint\DTO.dll
-D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.pdb
-D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\DTO.genruntimeconfig.cache
-D:\DOAN-TN\DATN.WebAPI.QuanLyNhaHangKhachSan\DTO\obj\Debug\net6.0\ref\DTO.dll
