@@ -70,7 +70,7 @@ namespace DAO
                
                 error.flagThanhCong = true;
                 dbcontext.NguoiDungs.Add(nguoiDung);
-               await dbcontext.SaveChanges();
+                error.data = await dbcontext.SaveChangesAsync();
                 return await Task.FromResult(error);
 
             }
