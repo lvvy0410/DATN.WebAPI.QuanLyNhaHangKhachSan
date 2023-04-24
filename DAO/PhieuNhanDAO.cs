@@ -1,4 +1,5 @@
 ﻿using DTO.Context;
+using DTO.DieuKienLoc;
 using DTO.Model;
 using DTO.Public;
 using DTO.publicDTO;
@@ -19,12 +20,13 @@ namespace DAO
         {
             this.dbcontext = dbcontext;
         }
-        public async Task<ErrorMessageDTO> LayDanhSachPhieuNhan()
+        public async Task<ErrorMessageDTO> LayDanhSachPhieuNhan(DieuKienLocPhieuNhan? obPhieuNhan)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                error.data = await dbcontext.PhieuNhans.ToListAsync();
+                error.data = await dbcontext.PhieuNhans.FromSqlRaw($"LayDanhSachPhieuNhan '{obPhieuNhan.PhieuNhanId}', '{obPhieuNhan.SoChungTu}'," +
+                    $"'{obPhieuNhan.LoaiPhieuId}', '{obPhieuNhan.KhachHangId}'").ToListAsync();
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);
             }

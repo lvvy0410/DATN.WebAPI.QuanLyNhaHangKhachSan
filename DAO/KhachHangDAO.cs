@@ -1,4 +1,5 @@
 ﻿using DTO.Context;
+using DTO.DieuKienLoc;
 using DTO.Model;
 using DTO.Public;
 using DTO.publicDTO;
@@ -19,12 +20,14 @@ namespace DAO
         {
             this.dbcontext = dbcontext;
         }
-        public async Task<ErrorMessageDTO> LayDanhSachKhachHang()
+        public async Task<ErrorMessageDTO> LayDanhSachKhachHang(DieuKienLocKhachHang obKhachHang)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                error.data = await dbcontext.KhachHangs.ToListAsync();
+
+                error.data = await dbcontext.KhachHangs.FromSqlRaw($"LayKhachHang '{obKhachHang.KhachHangId}', '{obKhachHang.Sdt}'," +
+                    $"'{obKhachHang.TenKhachHang}', '{obKhachHang.Cccd}'").ToListAsync();
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);
             }
@@ -36,34 +39,7 @@ namespace DAO
                 return await Task.FromResult(error);
             }
         }
-        public async Task<ErrorMessageDTO> TimKhachHang(int KhachHangID)
-        {
-            //return dbcontext.KhachHangs.Where(p => p.KhachHangID == KhachHangID).FirstOrDefault();
-            ErrorMessageDTO error = new ErrorMessageDTO();
-            try
-            {
-                KhachHang? item = await dbcontext.KhachHangs.Where(p => p.KhachHangId == KhachHangID).FirstOrDefaultAsync();
-                if (item == null)
-                {
-                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
-                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
-                    error.flagThanhCong = false;
-                    return await Task.FromResult(error);
-                }
-
-                error.data = item;
-                error.flagThanhCong = true;
-                return await Task.FromResult(error);
-
-            }
-            catch (Exception ex)
-            {
-                error.flagBiLoiEx = true;
-                error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
-                error.message = ex.Message;
-                return await Task.FromResult(error);
-            }
-        }
+       
         public async Task<ErrorMessageDTO> ThemKhachHang(KhachHang obKhachHang)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
