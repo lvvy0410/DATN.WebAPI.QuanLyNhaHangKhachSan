@@ -1,5 +1,6 @@
 ﻿using DAO;
 using DTO.Context;
+using DTO.DieuKienLoc;
 using DTO.Model;
 using DTO.Public;
 using DTO.publicDTO;
@@ -26,12 +27,12 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
         }
         [HttpPost]
         [Route("danhsach-PhieuNhanPhongChiTiet")]
-        public async Task<ActionResult<ResponseDTO>> LayDanhSachPhieuNhanPhongChiTiet()
+        public async Task<ActionResult<ResponseDTO>> LayDanhSachPhieuNhanPhongChiTiet(DieuKienLocPhieuNhanPhongChiTiet oblay)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await PhieuNhanPhongChiTietDAO.LayDanhSachPhieuNhanPhongChiTiet();
+                ErrorMessageDTO error = await PhieuNhanPhongChiTietDAO.LayDanhSachPhieuNhanPhongChiTiet(oblay);
                 if (error.flagBiLoiEx || !error.flagThanhCong)
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
