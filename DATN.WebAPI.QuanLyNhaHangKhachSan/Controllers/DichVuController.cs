@@ -73,15 +73,15 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost]
         [Route("danhsach-dichvu")]
-        public async Task<ActionResult<ResponseDTO>> LayDanhSachGoiMon()
+        public async Task<ActionResult<ResponseDTO>> LayDanhSachDichVu(DichVuDTO dichVu)
         {
 
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await dichVuDAO.LayDanhSachDV();
+                ErrorMessageDTO error = await dichVuDAO.LayDanhSachDichVu(dichVu);
                 if (error.flagBiLoiEx || !error.flagThanhCong)//(error.flagThanhCong == false))
                 {
 

@@ -49,6 +49,25 @@ namespace DAO
             }
         }
 
+        public async Task<ErrorMessageDTO> LayDanhSachGoiMon(GoiMonDTO? GoiMon)
+        {
+            ErrorMessageDTO error = new ErrorMessageDTO();
+            try
+            {
+                error.data = await dbcontext.GoiMons.FromSqlRaw($"LayDanhSachGoiMon '{GoiMon.PhongId}', '{GoiMon.BanId}'," +
+                    $"'{GoiMon.PhieuNhanId}', '{GoiMon.TrangThai}'").ToListAsync();
+                error.flagThanhCong = true;
+                return await Task.FromResult(error);
+            }
+            catch (Exception ex)
+            {
+                error.flagBiLoiEx = true;
+                error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
+                error.message = ex.Message;
+                return await Task.FromResult(error);
+            }
+        }
+
         public async Task<ErrorMessageDTO> LayDanhSachGM()
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
