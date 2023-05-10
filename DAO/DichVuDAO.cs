@@ -1,6 +1,7 @@
 ﻿using DTO.Context;
 using DTO.DieuKienLoc;
 using DTO.Model;
+using DTO.MultiTable;
 using DTO.Public;
 using DTO.publicDTO;
 using Microsoft.EntityFrameworkCore;
@@ -90,24 +91,28 @@ namespace DAO
             }
         }
 
-        public async Task<ErrorMessageDTO> ThemDV(DichVuDTO dichvu)
+        public async Task<ErrorMessageDTO> ThemDV(List<DichVuDTO> dichVus)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-
-                if (error.flagBiLoiEx)
+                try
+                {
+                    foreach (DichVuDTO dichVu in dichVus)
+                    {
+                        dbcontext.DichVus.Add(dichVu);
+                    }
+                    error.data = await dbcontext.SaveChangesAsync();
+                    error.flagThanhCong = true;
+                    return await Task.FromResult(error);
+                }
+                catch
                 {
                     error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
                     error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
                     error.flagThanhCong = false;
                     return await Task.FromResult(error);
                 }
-                dbcontext.DichVus.Add(dichvu);
-                error.data = await dbcontext.SaveChangesAsync();
-                error.flagThanhCong = true;
-                return await Task.FromResult(error);
-
 
             }
             catch (Exception ex)
@@ -119,35 +124,34 @@ namespace DAO
             }
         }
 
-        public async Task<ErrorMessageDTO> CapNhatDV(DichVuDTO dv)
+        public async Task<ErrorMessageDTO> CapNhatDV(List<DichVuDTO> dichVus)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
-            DichVu? item = dbcontext.DichVus.Where(p => p.DichVuId == dv.DichVuId).FirstOrDefault();
             try
             {
-                if (error.flagBiLoiEx)
+                try
+                {
+                    foreach (DichVuDTO dichVu in dichVus)
+                    {
+                        DichVu? item = dbcontext.DichVus.Where(p => p.DichVuId == dichVu.DichVuId).FirstOrDefault();
+                        item.SoLuong = dichVu.SoLuong;
+                        item.DonGia = dichVu.DonGia;
+                        item.ThanhTien = dichVu.ThanhTien;
+                        item.GhiChu = dichVu.GhiChu;
+                        item.TrangThai = dichVu.TrangThai;
+                    }
+                    error.data = await dbcontext.SaveChangesAsync();
+                    error.flagThanhCong = true;
+                    return await Task.FromResult(error);
+                }
+                catch
                 {
                     error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheCapNhat).ToString();
                     error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheCapNhat);
+                    error.flagThanhCong = false;
                     return await Task.FromResult(error);
                 }
-                error.flagThanhCong = true;
-                item.PhongId= dv.PhongId;
-                item.BanId = dv.BanId;
-                item.HangHoaId = dv.HangHoaId;
-                item.PhieuNhanId = dv.PhieuNhanId;
-                item.SoLuong = dv.SoLuong;
-                item.DonGia = dv.DonGia;
-                item.ThanhTien = dv.ThanhTien;
-                item.GhiChu = dv.GhiChu;
-                item.TrangThai = dv.TrangThai;
-             ;
-                await dbcontext.SaveChangesAsync();
-                error.data = item;
 
-                error.errorCode = Convert.ToInt32(ErrorCodeEnum.NoError).ToString();
-                error.message = ResponseDTO.GetValueError(ErrorCodeEnum.CapNhatThanhCong);
-                return await Task.FromResult(error);
             }
             catch (Exception)
             {

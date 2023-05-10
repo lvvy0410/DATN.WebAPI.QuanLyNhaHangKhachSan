@@ -108,12 +108,12 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 
         [HttpPost]
         [Route("them-dichvu")]
-        public async Task<ActionResult<DichVu>> ThemDuchVu(DichVuDTO dichVu)
+        public async Task<ActionResult<DichVu>> ThemDichVu(List<DichVuDTO> dichVus)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await dichVuDAO.ThemDV(dichVu);
+                ErrorMessageDTO error = await dichVuDAO.ThemDV(dichVus);
                 if (error.flagBiLoiEx)
                 {
 
@@ -135,16 +135,15 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 
                 return BadRequest(responseDTO);
             }
-
         }
         [HttpPost]
         [Route("capnhat-dichvu")]
-        public async Task<ActionResult<DichVu>> CapNhatDichVu(DichVuDTO dichvu)
+        public async Task<ActionResult<DichVu>> CapNhatDichVu(List<DichVuDTO> dichVus)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await dichVuDAO.CapNhatDV(dichvu);
+                ErrorMessageDTO error = await dichVuDAO.CapNhatDV(dichVus);
                 if (error.flagBiLoiEx || !error.flagThanhCong)
                 {
 

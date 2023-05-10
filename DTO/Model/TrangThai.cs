@@ -15,6 +15,7 @@ namespace DTO.Model
         public int TrangThaiId { get; set; }
         public string TenTrangThai { get; set; } = null!;
         public string MaTrangThai { get; set; } = null!;
+        public string? NhomTrangThai { get; set; }
 
         public virtual ICollection<Ban> Bans { get; set; }
         public virtual ICollection<Phong> Phongs { get; set; }

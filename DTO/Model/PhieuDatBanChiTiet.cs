@@ -9,6 +9,8 @@ namespace DTO.Model
         public long PhieuDatId { get; set; }
         public int BanId { get; set; }
         public int SoNguoi { get; set; }
+        public DateTime? ThoiGianNhanDuKien { get; set; }
+        public string? TrangThai { get; set; }
 
         public virtual Ban Ban { get; set; } = null!;
         public virtual PhieuDat PhieuDat { get; set; } = null!;

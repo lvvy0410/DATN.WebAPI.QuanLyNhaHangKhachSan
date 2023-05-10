@@ -13,7 +13,6 @@ namespace DTO.Model
         public long PhieuXuatId { get; set; }
         public long KhachHangId { get; set; }
         public string SoChungTu { get; set; } = null!;
-        public long? PhieuNhanId { get; set; }
         public DateTime NgayLap { get; set; }
         public int NguoiDungId { get; set; }
         public double TongThanhTien { get; set; }
@@ -24,7 +23,6 @@ namespace DTO.Model
 
         public virtual KhachHang KhachHang { get; set; } = null!;
         public virtual NguoiDung NguoiDung { get; set; } = null!;
-        public virtual PhieuNhan? PhieuNhan { get; set; }
         public virtual ICollection<PhieuXuatChiTiet> PhieuXuatChiTiets { get; set; }
     }
 }

@@ -7,10 +7,13 @@ namespace DTO.Model
     {
         public long PhieuDatPhongChiTietId { get; set; }
         public long PhieuDatId { get; set; }
-        public int PhongId { get; set; }
-        public int SoNguoi { get; set; }
+        public int LoaiPhongId { get; set; }
+        public int SoLuong { get; set; }
+        public DateTime? ThoiGianNhanDuKien { get; set; }
+        public DateTime? ThoiGianTraDuKien { get; set; }
+        public string? TrangThai { get; set; }
 
+        public virtual LoaiPhong LoaiPhong { get; set; } = null!;
         public virtual PhieuDat PhieuDat { get; set; } = null!;
-        public virtual Phong Phong { get; set; } = null!;
     }
 }

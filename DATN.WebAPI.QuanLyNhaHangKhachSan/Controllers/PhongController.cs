@@ -215,38 +215,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                 return BadRequest(responseDTO);
             }
         }
-        [HttpPost]
-        [Route("danhsach-phong-proc")]
-        public async Task<ActionResult<ResponseDTO>> LayDanhSachPhongProc()
-        {
-
-            ResponseDTO responseDTO = new ResponseDTO();
-            try
-            {
-                ErrorMessageDTO error = await phongDAO.LayDanhSachPhongProc();
-                if (error.flagBiLoiEx || !error.flagThanhCong)
-                {
-
-                    responseDTO.errorCode = error.errorCode;
-                    responseDTO.message = error.message;
-                    return Ok(responseDTO);
-                }
-
-                responseDTO.statusCode = HttpStatusCode.OK;
-                responseDTO.message = HttpStatusCode.OK.ToString();
-                responseDTO.data = error.data;
-
-                return Ok(responseDTO);
-            }
-            catch (Exception ex)
-            {
-
-                responseDTO.statusCode = HttpStatusCode.BadRequest;
-                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
-                responseDTO.message = ex.Message;
-                return BadRequest(responseDTO);
-            }
-        }
+        
         [HttpPost]
         [Route("danhsach-phongthuong1g")]
         public async Task<ActionResult<ResponseDTO>> LayDanhSachPhongThuong1G(int id)

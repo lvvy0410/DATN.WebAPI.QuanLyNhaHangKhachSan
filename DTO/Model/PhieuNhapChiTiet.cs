@@ -12,7 +12,7 @@ namespace DTO.Model
         public double SoLuong { get; set; }
         public double Gia { get; set; }
         public double ThanhTien { get; set; }
-        public string? DonViTinh { get; set; }
+        public string DonViTinh { get; set; } = null!;
         public int? HangHoaId { get; set; }
         public string? GhiChu { get; set; }
 

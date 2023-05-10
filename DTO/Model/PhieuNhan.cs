@@ -12,7 +12,7 @@ namespace DTO.Model
             PhieuNhanBanChiTiets = new HashSet<PhieuNhanBanChiTiet>();
             PhieuNhanPhongChiTiets = new HashSet<PhieuNhanPhongChiTiet>();
             PhieuThus = new HashSet<PhieuThu>();
-            PhieuXuats = new HashSet<PhieuXuat>();
+            PhieuXuatChiTiets = new HashSet<PhieuXuatChiTiet>();
         }
 
         public long PhieuNhanId { get; set; }
@@ -33,6 +33,6 @@ namespace DTO.Model
         public virtual ICollection<PhieuNhanBanChiTiet> PhieuNhanBanChiTiets { get; set; }
         public virtual ICollection<PhieuNhanPhongChiTiet> PhieuNhanPhongChiTiets { get; set; }
         public virtual ICollection<PhieuThu> PhieuThus { get; set; }
-        public virtual ICollection<PhieuXuat> PhieuXuats { get; set; }
+        public virtual ICollection<PhieuXuatChiTiet> PhieuXuatChiTiets { get; set; }
     }
 }
