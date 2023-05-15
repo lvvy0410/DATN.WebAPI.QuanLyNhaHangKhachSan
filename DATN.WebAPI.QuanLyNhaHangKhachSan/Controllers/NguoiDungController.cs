@@ -4,6 +4,7 @@ using DTO.Context;
 using DTO.Model;
 
 using DTO.Public;
+using DTO.publicDTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

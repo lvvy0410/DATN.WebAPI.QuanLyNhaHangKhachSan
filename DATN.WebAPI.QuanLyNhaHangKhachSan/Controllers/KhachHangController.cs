@@ -1,6 +1,7 @@
 ﻿
 using DAO;
 using DTO.Context;
+using DTO.DieuKienLoc;
 using DTO.Model;
 
 using DTO.Public;
@@ -27,59 +28,19 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 
         }
 
-        [HttpGet]
-        [Route("timKhachHang")]
-        public async Task<ActionResult<ResponseDTO>> TimKhachHang(int KhachHang)
-        {
-            ResponseDTO responseDTO = new ResponseDTO();
-            try
-            {
-                ErrorMessageDTO error = await KhachHangDAO.TimKhachHang(KhachHang);
-                if (error.flagBiLoiEx || !error.flagThanhCong)//(error.flagThanhCong == false))
-                {
-                    responseDTO.statusCode = HttpStatusCode.OK;
-                    responseDTO.errorCode = error.errorCode;
-                    responseDTO.message = error.message;
-                    return Ok(responseDTO);
-                }
-                if (KhachHang == null)
-                {
-                    responseDTO.statusCode = HttpStatusCode.OK;
-                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
-                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
-                    error.flagThanhCong = false;
-                    return Ok(responseDTO);
-                }
-
-
-
-                responseDTO.statusCode = HttpStatusCode.OK;
-                responseDTO.message = HttpStatusCode.OK.ToString();
-                responseDTO.errorCode = HttpStatusCode.OK.ToString();
-                responseDTO.data = error.data;
-
-                return Ok(responseDTO);
-            }
-            catch (Exception ex)
-            {
-
-                responseDTO.statusCode = HttpStatusCode.BadRequest;
-                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
-                responseDTO.message = ex.Message;
-                return BadRequest(responseDTO);
-            }
-        }
+       
+       
 
 
         [HttpPost]
-        [Route("danhsach-KhachHang")]
-        public async Task<ActionResult<ResponseDTO>> LayDanhSachKhachHang()
+        [Route("lay-KhachHang")]
+        public async Task<ActionResult<ResponseDTO>> LayDanhSachKhachHang(DieuKienLocKhachHang obKhachHang)
         {
 
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await KhachHangDAO.LayDanhSachKhachHang();
+                ErrorMessageDTO error = await KhachHangDAO.LayDanhSachKhachHang(obKhachHang);
                 if (error.flagBiLoiEx || !error.flagThanhCong)//(error.flagThanhCong == false))
                 {
 

@@ -1,4 +1,5 @@
 ﻿using DTO.Context;
+using DTO.DieuKienLoc;
 using DTO.Model;
 using DTO.Public;
 using DTO.publicDTO;
@@ -19,12 +20,13 @@ namespace DAO
         {
             this.dbcontext = dbcontext;
         }
-        public async Task<ErrorMessageDTO> LayDanhSachPhieuNhanPhongChiTiet()
+        public async Task<ErrorMessageDTO> LayDanhSachPhieuNhanPhongChiTiet(DieuKienLocPhieuNhanPhongChiTiet oblay)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                error.data = await dbcontext.PhieuNhanPhongChiTiets.ToListAsync();
+                error.data = await dbcontext.PhieuNhanPhongChiTiets.FromSqlRaw($"LayPhieuNhanChiTiet'{oblay.PhieuNhanPhongChiTietId}'," + $"'{oblay.PhieuNhanId}'," + $"'{oblay.PhongId}'").ToListAsync();
+
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);
             }
@@ -105,7 +107,8 @@ namespace DAO
                     error.flagThanhCong = false;
                     return await Task.FromResult(error);
                 }
-                obPhieuNhanPhongChiTietId.SoNguoi = obPhieuNhanPhongChiTiet.SoNguoi;
+                obPhieuNhanPhongChiTietId.ThoiGianTraPhong = obPhieuNhanPhongChiTiet.ThoiGianTraPhong;
+                obPhieuNhanPhongChiTietId.TrangThai = obPhieuNhanPhongChiTiet.TrangThai;
                 error.data = await dbcontext.SaveChangesAsync();
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);

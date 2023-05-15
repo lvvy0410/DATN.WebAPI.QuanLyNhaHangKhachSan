@@ -14,15 +14,15 @@ namespace DTO.Model
         }
 
         public int NguoiDungId { get; set; }
-        public string TenNguoiDung { get; set; } = null!;
-        public string Sdt { get; set; } = null!;
-        public string Cccd { get; set; } = null!;
-        public string GioiTinh { get; set; } = null!;
-        public string DiaChi { get; set; } = null!;
-        public string LoaiTaiKhoan { get; set; } = null!;
-        public string TaiKhoan { get; set; } = null!;
-        public string MatKhau { get; set; } = null!;
-        public int TrangThai { get; set; }
+        public string? TenNguoiDung { get; set; } 
+        public string Sdt { get; set; } 
+        public string? Cccd { get; set; }
+        public string? GioiTinh { get; set; } 
+        public string DiaChi { get; set; } 
+        public string? LoaiTaiKhoan { get; set; } 
+        public string? TaiKhoan { get; set; } 
+        public string MatKhau { get; set; } 
+        public int? TrangThai { get; set; }
 
         public virtual ICollection<PhieuDat> PhieuDats { get; set; }
         public virtual ICollection<PhieuNhan> PhieuNhans { get; set; }

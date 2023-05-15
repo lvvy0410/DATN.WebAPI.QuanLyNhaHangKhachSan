@@ -1,6 +1,7 @@
 ﻿using DTO.Context;
 using DTO.Model;
 using DTO.Public;
+using DTO.publicDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System;
@@ -91,19 +92,10 @@ namespace DAO
             try
             {
               
-                error.flagThanhCong = true;
-                item.TenNguoiDung = nguoiDung.TenNguoiDung;
-                item.Sdt = nguoiDung.Sdt;
-                item.Cccd = nguoiDung.Cccd;
-                item.GioiTinh = nguoiDung.GioiTinh;
-                item.DiaChi = nguoiDung.DiaChi;
-                item.LoaiTaiKhoan = nguoiDung.LoaiTaiKhoan;
-                item.TaiKhoan = nguoiDung.TaiKhoan;
-                item.MatKhau = nguoiDung.MatKhau;
-                item.TrangThai = nguoiDung.TrangThai;
-                
-
-
+                error.flagThanhCong = true;          
+                item.Sdt = nguoiDung.Sdt;               
+                item.DiaChi = nguoiDung.DiaChi;                           
+                item.MatKhau = nguoiDung.MatKhau;                           
                 await dbcontext.SaveChangesAsync();
                 error.data = item;
 
