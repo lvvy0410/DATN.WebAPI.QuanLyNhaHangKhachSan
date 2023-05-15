@@ -85,6 +85,7 @@ namespace DAO
                     {
                         phieuDatPhongChiTietDAO.PhieuDatId = phieuDatId;
                         dbcontext.PhieuDatPhongChiTiets.Add(phieuDatPhongChiTietDAO);
+                        await dbcontext.SaveChangesAsync();
                     }
                     error.data = await dbcontext.SaveChangesAsync();
                     error.flagThanhCong = true;

@@ -13,10 +13,12 @@ namespace DTO.Model
         public double ThanhTien { get; set; }
         public string DonViTinh { get; set; } = null!;
         public string? GhiChu { get; set; }
-        public long? PhieuNhanId { get; set; }
+        public long? PhieuNhanPhongChiTietId { get; set; }
+        public long? PhieuNhanBanChiTietId { get; set; }
 
         public virtual HangHoa HangHoa { get; set; } = null!;
-        public virtual PhieuNhan PhieuXuat { get; set; } = null!;
-        public virtual PhieuXuat PhieuXuatNavigation { get; set; } = null!;
+        public virtual PhieuNhanBanChiTiet? PhieuNhanBanChiTiet { get; set; }
+        public virtual PhieuNhanPhongChiTiet? PhieuNhanPhongChiTiet { get; set; }
+        public virtual PhieuXuat PhieuXuat { get; set; } = null!;
     }
 }

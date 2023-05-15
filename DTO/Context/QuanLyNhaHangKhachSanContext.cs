@@ -111,8 +111,6 @@ namespace DTO.Context
 
                 entity.Property(e => e.DichVuId).HasColumnName("DichVuID");
 
-                entity.Property(e => e.BanId).HasColumnName("BanID");
-
                 entity.Property(e => e.GhiChu).HasMaxLength(100);
 
                 entity.Property(e => e.HangHoaId).HasColumnName("HangHoaID");
@@ -124,11 +122,6 @@ namespace DTO.Context
                 entity.Property(e => e.ThoiGian).HasColumnType("datetime");
 
                 entity.Property(e => e.TrangThai).HasMaxLength(50);
-
-                entity.HasOne(d => d.Ban)
-                    .WithMany(p => p.DichVus)
-                    .HasForeignKey(d => d.BanId)
-                    .HasConstraintName("FK_DichVu_Ban");
 
                 entity.HasOne(d => d.HangHoa)
                     .WithMany(p => p.DichVus)
@@ -161,8 +154,6 @@ namespace DTO.Context
 
                 entity.Property(e => e.PhieuNhanId).HasColumnName("PhieuNhanID");
 
-                entity.Property(e => e.PhongId).HasColumnName("PhongID");
-
                 entity.Property(e => e.ThoiGian).HasColumnType("datetime");
 
                 entity.Property(e => e.TrangThai).HasMaxLength(50);
@@ -182,11 +173,6 @@ namespace DTO.Context
                     .WithMany(p => p.GoiMons)
                     .HasForeignKey(d => d.PhieuNhanId)
                     .HasConstraintName("FK_GoiMon_PhieuNhan");
-
-                entity.HasOne(d => d.Phong)
-                    .WithMany(p => p.GoiMons)
-                    .HasForeignKey(d => d.PhongId)
-                    .HasConstraintName("FK_GoiMon_Phong");
             });
 
             modelBuilder.Entity<HangHoa>(entity =>
@@ -520,8 +506,6 @@ namespace DTO.Context
 
                 entity.Property(e => e.ThoiGianTraPhong).HasColumnType("datetime");
 
-                entity.Property(e => e.TrangThai).HasMaxLength(50);
-
                 entity.HasOne(d => d.PhieuNhan)
                     .WithMany(p => p.PhieuNhanPhongChiTiets)
                     .HasForeignKey(d => d.PhieuNhanId)
@@ -579,6 +563,10 @@ namespace DTO.Context
 
                 entity.Property(e => e.KhoId).HasColumnName("KhoID");
 
+                entity.Property(e => e.PhieuNhanBanChiTietId).HasColumnName("PhieuNhanBanChiTietID");
+
+                entity.Property(e => e.PhieuNhanPhongChiTietId).HasColumnName("PhieuNhanPhongChiTietID");
+
                 entity.Property(e => e.PhieuNhapId).HasColumnName("PhieuNhapID");
 
                 entity.Property(e => e.TenMatHang).HasMaxLength(100);
@@ -593,6 +581,16 @@ namespace DTO.Context
                     .HasForeignKey(d => d.KhoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PhieuNhapChiTiet_Kho");
+
+                entity.HasOne(d => d.PhieuNhanBanChiTiet)
+                    .WithMany(p => p.PhieuNhapChiTiets)
+                    .HasForeignKey(d => d.PhieuNhanBanChiTietId)
+                    .HasConstraintName("FK_PhieuNhapChiTiet_PhieuNhanBanChiTiet");
+
+                entity.HasOne(d => d.PhieuNhanPhongChiTiet)
+                    .WithMany(p => p.PhieuNhapChiTiets)
+                    .HasForeignKey(d => d.PhieuNhanPhongChiTietId)
+                    .HasConstraintName("FK_PhieuNhapChiTiet_PhieuNhanPhongChiTiet");
 
                 entity.HasOne(d => d.PhieuNhap)
                     .WithMany(p => p.PhieuNhapChiTiets)
@@ -643,6 +641,8 @@ namespace DTO.Context
 
                 entity.Property(e => e.NguoiDungId).HasColumnName("NguoiDungID");
 
+                entity.Property(e => e.PhieuNhanId).HasColumnName("PhieuNhanID");
+
                 entity.Property(e => e.SoChungTu)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -658,6 +658,11 @@ namespace DTO.Context
                     .HasForeignKey(d => d.NguoiDungId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PhieuXuat_NguoiDung");
+
+                entity.HasOne(d => d.PhieuNhan)
+                    .WithMany(p => p.PhieuXuats)
+                    .HasForeignKey(d => d.PhieuNhanId)
+                    .HasConstraintName("FK_PhieuXuat_PhieuNhan");
             });
 
             modelBuilder.Entity<PhieuXuatChiTiet>(entity =>
@@ -672,7 +677,9 @@ namespace DTO.Context
 
                 entity.Property(e => e.HangHoaId).HasColumnName("HangHoaID");
 
-                entity.Property(e => e.PhieuNhanId).HasColumnName("PhieuNhanID");
+                entity.Property(e => e.PhieuNhanBanChiTietId).HasColumnName("PhieuNhanBanChiTietID");
+
+                entity.Property(e => e.PhieuNhanPhongChiTietId).HasColumnName("PhieuNhanPhongChiTietID");
 
                 entity.Property(e => e.PhieuXuatId).HasColumnName("PhieuXuatID");
 
@@ -682,13 +689,17 @@ namespace DTO.Context
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PhieuXuatChiTiet_HangHoa");
 
-                entity.HasOne(d => d.PhieuXuat)
+                entity.HasOne(d => d.PhieuNhanBanChiTiet)
                     .WithMany(p => p.PhieuXuatChiTiets)
-                    .HasForeignKey(d => d.PhieuXuatId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PhieuXuatChiTiet_PhieuNhan");
+                    .HasForeignKey(d => d.PhieuNhanBanChiTietId)
+                    .HasConstraintName("FK_PhieuXuatChiTiet_PhieuNhanBanChiTiet");
 
-                entity.HasOne(d => d.PhieuXuatNavigation)
+                entity.HasOne(d => d.PhieuNhanPhongChiTiet)
+                    .WithMany(p => p.PhieuXuatChiTiets)
+                    .HasForeignKey(d => d.PhieuNhanPhongChiTietId)
+                    .HasConstraintName("FK_PhieuXuatChiTiet_PhieuNhanPhongChiTiet");
+
+                entity.HasOne(d => d.PhieuXuat)
                     .WithMany(p => p.PhieuXuatChiTiets)
                     .HasForeignKey(d => d.PhieuXuatId)
                     .OnDelete(DeleteBehavior.ClientSetNull)

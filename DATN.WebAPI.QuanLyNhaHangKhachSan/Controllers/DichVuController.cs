@@ -1,6 +1,7 @@
 ﻿using DAO;
 using DTO.Context;
 using DTO.Model;
+using DTO.MultiTable;
 using DTO.Public;
 using DTO.publicDTO;
 using Microsoft.AspNetCore.Authorization;
@@ -108,12 +109,12 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 
         [HttpPost]
         [Route("them-dichvu")]
-        public async Task<ActionResult<DichVu>> ThemDichVu(List<DichVuDTO> dichVus)
+        public async Task<ActionResult<DichVu>> ThemDichVu(ListDichVu listDichVu)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await dichVuDAO.ThemDV(dichVus);
+                ErrorMessageDTO error = await dichVuDAO.ThemDV(listDichVu);
                 if (error.flagBiLoiEx)
                 {
 
@@ -138,12 +139,12 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
         }
         [HttpPost]
         [Route("capnhat-dichvu")]
-        public async Task<ActionResult<DichVu>> CapNhatDichVu(List<DichVuDTO> dichVus)
+        public async Task<ActionResult<DichVu>> CapNhatDichVu(ListDichVu listDichVus)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await dichVuDAO.CapNhatDV(dichVus);
+                ErrorMessageDTO error = await dichVuDAO.CapNhatDV(listDichVus);
                 if (error.flagBiLoiEx || !error.flagThanhCong)
                 {
 

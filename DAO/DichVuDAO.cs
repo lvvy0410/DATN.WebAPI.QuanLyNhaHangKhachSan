@@ -6,6 +6,7 @@ using DTO.Public;
 using DTO.publicDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -30,8 +31,8 @@ namespace DAO
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                error.data = await dbcontext.DichVus.FromSqlRaw($"LayDanhSachDichVu '{dichVu.PhongId}', '{dichVu.BanId}'," +
-                    $"'{dichVu.PhieuNhanId}', '{dichVu.TrangThai}'").ToListAsync();
+                error.data = await dbcontext.DichVus.FromSqlRaw($"LayDanhSachDichVu  '{dichVu.PhongId}'," +
+                    $"'{dichVu.PhieuNhanId}', N'{dichVu.TrangThai}'").ToListAsync();
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);
             }
@@ -91,15 +92,19 @@ namespace DAO
             }
         }
 
-        public async Task<ErrorMessageDTO> ThemDV(List<DichVuDTO> dichVus)
+        public async Task<ErrorMessageDTO> ThemDV(ListDichVu listDichVu)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
                 try
                 {
-                    foreach (DichVuDTO dichVu in dichVus)
+                    foreach (DichVuDTO dichVu in listDichVu.dichVuDTOsThem)
                     {
+                        if (dichVu.PhieuNhanId == 0)
+                        {
+                            dichVu.PhieuNhanId = null;
+                        }
                         dbcontext.DichVus.Add(dichVu);
                     }
                     error.data = await dbcontext.SaveChangesAsync();
@@ -124,21 +129,86 @@ namespace DAO
             }
         }
 
-        public async Task<ErrorMessageDTO> CapNhatDV(List<DichVuDTO> dichVus)
+        public async Task<ErrorMessageDTO> CapNhatDV(ListDichVu listDichVu)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
                 try
                 {
-                    foreach (DichVuDTO dichVu in dichVus)
+                    if (listDichVu.dichVuDTOsCapNhat.Count == 0)
                     {
-                        DichVu? item = dbcontext.DichVus.Where(p => p.DichVuId == dichVu.DichVuId).FirstOrDefault();
-                        item.SoLuong = dichVu.SoLuong;
-                        item.DonGia = dichVu.DonGia;
-                        item.ThanhTien = dichVu.ThanhTien;
-                        item.GhiChu = dichVu.GhiChu;
-                        item.TrangThai = dichVu.TrangThai;
+
+                    }
+                    else
+                    {
+                        if (listDichVu.dichVuDTOsCapNhat.Count == 1 && listDichVu.dichVuDTOsCapNhat[0].TrangThai == "xóa tất cả")
+                        {
+                            List<DichVu>? listDichVuXoaTatCa = await dbcontext.DichVus.Where(p => p.TrangThai == "chưa thanh toán" && p.PhongId == listDichVu.dichVuDTOsCapNhat[0].PhongId).ToListAsync();
+                            for (int i = 0; i < listDichVuXoaTatCa.Count; i++)
+                            {
+                                DichVu? item = dbcontext.DichVus.Where(p => p.DichVuId == listDichVuXoaTatCa[i].DichVuId).FirstOrDefault();
+                                item.TrangThai = "đã xóa";
+                                await dbcontext.SaveChangesAsync();
+                            }
+                            listDichVu.dichVuDTOsCapNhat.Clear();
+                        }
+                        foreach (DichVuDTO dichVu in listDichVu.dichVuDTOsCapNhat)
+                        {
+                            DichVu? item = dbcontext.DichVus.Where(p => p.DichVuId == dichVu.DichVuId).FirstOrDefault();
+                            if (item == null)
+                            {
+                                if (dichVu.PhieuNhanId == 0)
+                                {
+                                    dichVu.PhieuNhanId = null;
+                                }
+                                dbcontext.DichVus.Add(dichVu);
+                                await dbcontext.SaveChangesAsync();
+                            }
+                            else
+                            {
+                                if (dichVu.PhieuNhanId == 0 || dichVu.PhieuNhanId == null)
+                                {
+                                    dichVu.PhieuNhanId = null;
+                                }
+                                item.SoLuong = dichVu.SoLuong;
+                                item.DonGia = dichVu.DonGia;
+                                item.ThanhTien = dichVu.ThanhTien;
+                                item.GhiChu = dichVu.GhiChu;
+                                item.TrangThai = dichVu.TrangThai;
+                                await dbcontext.SaveChangesAsync();
+                            }
+                        }
+                        List<DichVu>? listDichVuBanDau = await dbcontext.DichVus.Where(p => p.TrangThai == "chưa thanh toán" && p.PhongId == listDichVu.dichVuDTOsCapNhat[0].PhongId).ToListAsync();
+                        if (listDichVuBanDau.Count > 0)
+                        {
+                            //var firstNotSecond = listDichVuBanDau.Except(listDichVu.dichVuDTOsCapNhat).ToList();
+                            List<DichVu>? firstNotSecond = new List<DichVu>();
+                            for (int i=0;i<listDichVuBanDau.Count;i++)
+                            {
+                                bool check=false;
+                                for(int j = 0; j < listDichVu.dichVuDTOsCapNhat.Count; j++)
+                                {
+                                    if (listDichVuBanDau[i].HangHoaId == listDichVu.dichVuDTOsCapNhat[j].HangHoaId)
+                                    {
+                                        check= true;
+                                    }
+                                }
+                                if (check == false)
+                                {
+                                    firstNotSecond.Add(listDichVuBanDau[i]as DichVu);
+                                }
+                            }
+                            if (firstNotSecond.Count > 0)
+                            {
+                                for (int i = 0; i < firstNotSecond.Count; i++)
+                                {
+                                    DichVu? item = dbcontext.DichVus.Where(p => p.DichVuId == firstNotSecond[i].DichVuId).FirstOrDefault();
+                                    item.TrangThai = "đã xóa";
+                                    await dbcontext.SaveChangesAsync();
+                                }
+                            }
+                        }
                     }
                     error.data = await dbcontext.SaveChangesAsync();
                     error.flagThanhCong = true;
@@ -165,7 +235,7 @@ namespace DAO
 
 
         }
-        public async Task<ErrorMessageDTO> Xoa(int dv)
+        public async Task<ErrorMessageDTO> Xoa(long dv)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             DichVu? item = dbcontext.DichVus.Where(p => p.DichVuId == dv).FirstOrDefault();

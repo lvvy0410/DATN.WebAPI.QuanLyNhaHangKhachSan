@@ -5,6 +5,12 @@ namespace DTO.Model
 {
     public partial class PhieuNhanBanChiTiet
     {
+        public PhieuNhanBanChiTiet()
+        {
+            PhieuNhapChiTiets = new HashSet<PhieuNhapChiTiet>();
+            PhieuXuatChiTiets = new HashSet<PhieuXuatChiTiet>();
+        }
+
         public long PhieuNhanBanChiTietId { get; set; }
         public long PhieuNhanId { get; set; }
         public int BanId { get; set; }
@@ -15,5 +21,7 @@ namespace DTO.Model
 
         public virtual Ban Ban { get; set; } = null!;
         public virtual PhieuNhan PhieuNhan { get; set; } = null!;
+        public virtual ICollection<PhieuNhapChiTiet> PhieuNhapChiTiets { get; set; }
+        public virtual ICollection<PhieuXuatChiTiet> PhieuXuatChiTiets { get; set; }
     }
 }

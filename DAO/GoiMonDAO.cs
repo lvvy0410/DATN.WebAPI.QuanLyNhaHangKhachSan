@@ -54,7 +54,7 @@ namespace DAO
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                error.data = await dbcontext.GoiMons.FromSqlRaw($"LayDanhSachGoiMon '{GoiMon.PhongId}', '{GoiMon.BanId}'," +
+                error.data = await dbcontext.GoiMons.FromSqlRaw($"LayDanhSachGoiMon  '{GoiMon.BanId}'," +
                     $"'{GoiMon.PhieuNhanId}', '{GoiMon.TrangThai}'").ToListAsync();
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);
@@ -128,7 +128,6 @@ namespace DAO
                     return await Task.FromResult(error);
                 }
                 error.flagThanhCong = true;
-                item.PhongId = gm.PhongId;
                 item.BanId = gm.BanId;
                 item.HangHoaId = gm.HangHoaId;
                 item.PhieuNhanId = gm.PhieuNhanId;
