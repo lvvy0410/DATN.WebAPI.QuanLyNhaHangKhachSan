@@ -1,6 +1,7 @@
 ﻿using DAO;
 using DTO.Context;
 using DTO.Model;
+using DTO.MultiTable;
 using DTO.Public;
 using DTO.publicDTO;
 using Microsoft.AspNetCore.Authorization;
@@ -73,15 +74,15 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost]
         [Route("danhsach-dichvu")]
-        public async Task<ActionResult<ResponseDTO>> LayDanhSachGoiMon()
+        public async Task<ActionResult<ResponseDTO>> LayDanhSachDichVu(DichVuDTO dichVu)
         {
 
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await dichVuDAO.LayDanhSachDV();
+                ErrorMessageDTO error = await dichVuDAO.LayDanhSachDichVu(dichVu);
                 if (error.flagBiLoiEx || !error.flagThanhCong)//(error.flagThanhCong == false))
                 {
 
@@ -108,12 +109,12 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 
         [HttpPost]
         [Route("them-dichvu")]
-        public async Task<ActionResult<DichVu>> ThemDuchVu(DichVuDTO dichVu)
+        public async Task<ActionResult<DichVu>> ThemDichVu(ListDichVu listDichVu)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await dichVuDAO.ThemDV(dichVu);
+                ErrorMessageDTO error = await dichVuDAO.ThemDV(listDichVu);
                 if (error.flagBiLoiEx)
                 {
 
@@ -135,16 +136,15 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 
                 return BadRequest(responseDTO);
             }
-
         }
         [HttpPost]
         [Route("capnhat-dichvu")]
-        public async Task<ActionResult<DichVu>> CapNhatDichVu(DichVuDTO dichvu)
+        public async Task<ActionResult<DichVu>> CapNhatDichVu(ListDichVu listDichVus)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await dichVuDAO.CapNhatDV(dichvu);
+                ErrorMessageDTO error = await dichVuDAO.CapNhatDV(listDichVus);
                 if (error.flagBiLoiEx || !error.flagThanhCong)
                 {
 

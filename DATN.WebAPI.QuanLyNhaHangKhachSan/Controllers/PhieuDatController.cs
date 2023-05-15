@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using DTO.DieuKienLoc;
+using DTO.MultiTable;
 
 namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 {
@@ -97,12 +98,12 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
         }
         [HttpPost]
         [Route("them-PhieuDat")]
-        public async Task<ActionResult<ResponseDTO>> ThemPhieuDat(PhieuDatDTO obPhieuDat)
+        public async Task<ActionResult<ResponseDTO>> ThemPhieuDat(DatPhong datPhong)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await PhieuDatDAO.ThemPhieuDat(obPhieuDat);
+                ErrorMessageDTO error = await PhieuDatDAO.ThemPhieuDat(datPhong);
                 if (error.flagBiLoiEx || !error.flagThanhCong)
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
