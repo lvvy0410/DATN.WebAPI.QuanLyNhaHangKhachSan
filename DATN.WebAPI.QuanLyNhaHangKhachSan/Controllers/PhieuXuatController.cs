@@ -1,7 +1,9 @@
 ﻿using DAO;
 using DTO.Context;
 using DTO.DieuKienLoc;
+using DTO.Model;
 using DTO.Public;
+using DTO.publicDTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -51,6 +53,36 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                 responseDTO.statusCode = HttpStatusCode.BadRequest;
                 responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
                 responseDTO.message = ex.Message;
+                return BadRequest(responseDTO);
+            }
+        }
+        [HttpPost]
+        [Route("themphieuxuat")]
+        public async Task<ActionResult<ResponseDTO>> ThemPhieuXuat(PhieuXuatDTO phieuXuat)
+        {
+            ResponseDTO responseDTO = new ResponseDTO();
+            try
+            {
+                ErrorMessageDTO error = await phieuXuatDAO.ThemPhieuXuat(phieuXuat);
+                if (error.flagBiLoiEx)
+                {
+                    responseDTO.statusCode = HttpStatusCode.OK;
+                    responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
+                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
+                    return Ok(responseDTO);
+                }
+
+                responseDTO.statusCode = HttpStatusCode.OK;
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.ThemThanhCong).ToString();
+                responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.ThemThanhCong);
+                return Ok(responseDTO);
+            }
+            catch (Exception ex)
+            {
+                responseDTO.statusCode = HttpStatusCode.BadRequest;
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
+                responseDTO.message = ex.Message;
+
                 return BadRequest(responseDTO);
             }
         }
