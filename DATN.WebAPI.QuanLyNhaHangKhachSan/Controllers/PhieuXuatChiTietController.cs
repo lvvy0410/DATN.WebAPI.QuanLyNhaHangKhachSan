@@ -2,6 +2,8 @@
 using DTO.Context;
 using DTO.DieuKienLoc;
 using DTO.Public;
+using DTO.Model;
+using DTO.publicDTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -22,8 +24,8 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
             this.dbcontext = dbcontext;
         }
         [HttpPost]
-        [Route("layPhieuXuatChiTiet")]
-        public async Task<ActionResult<ResponseDTO>> LayPhieuXuatChiTiet(DieuKienLocPhieuXuatChiTiet oblay)
+        [Route("danhsach-phieuXuatChiTiet")]
+        public async Task<ActionResult<ResponseDTO>> LayPhieuXuatPhongCT(DieuKienLocPhieuXuatChiTiet? oblay)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
