@@ -1,6 +1,7 @@
 ﻿using DTO.Context;
 using DTO.DieuKienLoc;
 using DTO.Model;
+using DTO.MultiTable;
 using DTO.Public;
 using DTO.publicDTO;
 using Microsoft.EntityFrameworkCore;
@@ -38,15 +39,35 @@ namespace DAO
                 return await Task.FromResult(error);
             }
         }
-       public async Task<ErrorMessageDTO> ThemPhieuXuat(PhieuXuatDTO phieuXuat)
+       public async Task<ErrorMessageDTO> ThemPhieuXuat(XuatPhong xuatPhong)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                dbcontext.PhieuXuats.Add(phieuXuat);
-                error.data = await dbcontext.SaveChangesAsync();
-                error.flagThanhCong=true;
-                return await Task.FromResult(error);
+                try
+                {
+                    dbcontext.PhieuXuats.Add(xuatPhong.phieuXuatDTO);
+                    await dbcontext.SaveChangesAsync();
+
+                    long phieuXuatId = xuatPhong.phieuXuatDTO.PhieuXuatId;
+
+                    foreach (PhieuXuatChiTietDTO phieuXuatChiTietDTO in xuatPhong.phieuXuatChiTiets)
+                    {
+                        phieuXuatChiTietDTO.PhieuXuatId = phieuXuatId;
+                        dbcontext.PhieuXuatChiTiets.Add(phieuXuatChiTietDTO);
+                        await dbcontext.SaveChangesAsync();
+                    }
+                    error.data = await dbcontext.SaveChangesAsync();
+                    error.flagThanhCong = true;
+                    return await Task.FromResult(error);
+                }
+                catch
+                {
+                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
+                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
+                    error.flagThanhCong = false;
+                    return await Task.FromResult(error);
+                }
             }
             catch (Exception ex)
             {

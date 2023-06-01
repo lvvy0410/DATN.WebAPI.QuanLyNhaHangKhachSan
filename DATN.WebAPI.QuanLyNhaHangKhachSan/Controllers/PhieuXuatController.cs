@@ -2,6 +2,7 @@
 using DTO.Context;
 using DTO.DieuKienLoc;
 using DTO.Model;
+using DTO.MultiTable;
 using DTO.Public;
 using DTO.publicDTO;
 using Microsoft.AspNetCore.Authorization;
@@ -58,13 +59,13 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
         }
         [HttpPost]
         [Route("themphieuxuat")]
-        public async Task<ActionResult<ResponseDTO>> ThemPhieuXuat(PhieuXuatDTO phieuXuat)
+        public async Task<ActionResult<ResponseDTO>> ThemPhieuXuat(XuatPhong phieuXuat)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
                 ErrorMessageDTO error = await phieuXuatDAO.ThemPhieuXuat(phieuXuat);
-                if (error.flagBiLoiEx)
+                if (error.flagBiLoiEx != !error.flagThanhCong)
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
                     responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();

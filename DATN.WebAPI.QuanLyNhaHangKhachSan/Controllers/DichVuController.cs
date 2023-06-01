@@ -212,5 +212,37 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                 return BadRequest(responseDTO);
             }
         }
+        [HttpPost]
+        [Route("danhsachdv_theo_phieunhan")]
+        public async Task<ActionResult<ResponseDTO>> LayDVTheoPN(DichVuDTO dichVu)
+        {
+
+            ResponseDTO responseDTO = new ResponseDTO();
+            try
+            {
+                ErrorMessageDTO error = await dichVuDAO.LayDanhSachDichVu(dichVu);
+                if (error.flagBiLoiEx || !error.flagThanhCong)//(error.flagThanhCong == false))
+                {
+
+                    responseDTO.errorCode = error.errorCode;
+                    responseDTO.message = error.message;
+                    return Ok(responseDTO);
+                }
+
+                responseDTO.statusCode = HttpStatusCode.OK;
+                responseDTO.message = HttpStatusCode.OK.ToString();
+                responseDTO.data = error.data;
+
+                return Ok(responseDTO);
+            }
+            catch (Exception ex)
+            {
+
+                responseDTO.statusCode = HttpStatusCode.BadRequest;
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
+                responseDTO.message = ex.Message;
+                return BadRequest(responseDTO);
+            }
+        }
     }
 }

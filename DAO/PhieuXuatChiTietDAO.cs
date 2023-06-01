@@ -38,7 +38,26 @@ namespace DAO
                 return await Task.FromResult(error);
             }
         }
-        
+        public async Task<ErrorMessageDTO> ThemPhieuXuatChiTiet(PhieuXuatChiTietDTO phieuXuatChiTiet)
+        {
+            ErrorMessageDTO error = new ErrorMessageDTO();
+            try
+            {
+                dbcontext.PhieuXuatChiTiets.Add(phieuXuatChiTiet);
+                error.data = await dbcontext.SaveChangesAsync();
+                error.flagThanhCong = true;
+                return await Task.FromResult(error);
+            }
+            catch (Exception ex)
+            {
+                error.flagBiLoiEx = true;
+                error.message = ResponseDTO.GetValueError(ErrorCodeEnum.InternalServerError).ToString();
+                error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
+                return await Task.FromResult(error);
+            }
+
         }
+
+    }
     }
 

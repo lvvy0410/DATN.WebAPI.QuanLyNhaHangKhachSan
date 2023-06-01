@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using DTO.DieuKienLoc;
+using DTO.MultiTable;
 
 namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 {
@@ -96,7 +97,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
         }
         [HttpPost]
         [Route("them-PhieuNhan")]
-        public async Task<ActionResult<ResponseDTO>> ThemPhieuNhan(PhieuNhanDTO obPhieuNhan)
+        public async Task<ActionResult<ResponseDTO>> ThemPhieuNhan(NhanPhong obPhieuNhan)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try

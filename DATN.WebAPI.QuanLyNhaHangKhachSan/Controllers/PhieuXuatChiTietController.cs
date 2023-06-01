@@ -54,6 +54,36 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                 return BadRequest(responseDTO);
             }
         }
+        [HttpPost]
+        [Route("themphieuxuatCT")]
+        public async Task<ActionResult<ResponseDTO>> ThemPhieuXuatChiTiet(PhieuXuatChiTietDTO phieuXuatChiTiet)
+        {
+            ResponseDTO responseDTO = new ResponseDTO();
+            try
+            {
+                ErrorMessageDTO error = await phieuXuatChiTietDAO.ThemPhieuXuatChiTiet(phieuXuatChiTiet);
+                if (error.flagBiLoiEx)
+                {
+                    responseDTO.statusCode = HttpStatusCode.OK;
+                    responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
+                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
+                    return Ok(responseDTO);
+                }
+
+                responseDTO.statusCode = HttpStatusCode.OK;
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.ThemThanhCong).ToString();
+                responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.ThemThanhCong);
+                return Ok(responseDTO);
+            }
+            catch (Exception ex)
+            {
+                responseDTO.statusCode = HttpStatusCode.BadRequest;
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
+                responseDTO.message = ex.Message;
+
+                return BadRequest(responseDTO);
+            }
+        }
 
     }
 }
