@@ -12,5 +12,6 @@ namespace DTO.MultiTable
     {
         public PhieuDatDTO phieuDatDTO { get; set; }
         public List<PhieuDatPhongChiTietDTO> phieuDatPhongChiTiets { get; set; }
+        public KhachHang? khachHang { get; set; }
     }
 }

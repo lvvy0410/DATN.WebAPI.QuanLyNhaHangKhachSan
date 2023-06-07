@@ -1,6 +1,7 @@
 ﻿using DAO;
 using DTO.Context;
 using DTO.Model;
+using DTO.MultiTable;
 using DTO.Public;
 using DTO.publicDTO;
 using Microsoft.AspNetCore.Authorization;
@@ -55,14 +56,14 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                 return BadRequest(responseDTO);
             }
         }
-        [HttpGet]
-        [Route("{PhieuDatPhongChiTietID}")]
-        public async Task<ActionResult<ResponseDTO>> LayPhieuDatPhongChiTiet(Int32 PhieuDatPhongChiTietID)
+        [HttpPost]
+        [Route("layPhieuDatPhongChiTiet")]
+        public async Task<ActionResult<ResponseDTO>> LayPhieuDatPhongChiTiet(PhieuDatDTO phieuDat)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await PhieuDatPhongChiTietDAO.LayPhieuDatPhongChiTiet(PhieuDatPhongChiTietID);
+                ErrorMessageDTO error = await PhieuDatPhongChiTietDAO.LayPhieuDatPhongChiTiet(phieuDat);
                 if (error.flagBiLoiEx || !error.flagThanhCong)
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
