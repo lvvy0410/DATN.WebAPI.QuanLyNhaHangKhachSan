@@ -10,7 +10,8 @@ namespace DTO.DieuKienLoc
     {
         public long? PhieuDatId { get; set; }
         public string? SoChungTu { get;set; }
-        public int? LoaiPhieuId { get; set; }
+        public int? loaiPhieu { get; set; }
         public long? KhachHangId { get; set; }
+        public string? TrangThai { get; set; }
     }
 }

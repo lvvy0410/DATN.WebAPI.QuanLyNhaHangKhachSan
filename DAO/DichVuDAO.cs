@@ -142,6 +142,9 @@ namespace DAO
                     }
                     else
                     {
+                        //xóa tất cả
+                        //cách dùng : sau khi xóa tất cả dịch vụ trong list ở giao diện và bấm lưu sẽ tạo 1 dịch vụ ảo có trạng thái là xóa tất cả
+                        //lưu ý : lúc đó list chỉ có 1 dịch vụ ảo và trạng thái xóa tất cả
                         if (listDichVu.dichVuDTOsCapNhat.Count == 1 && listDichVu.dichVuDTOsCapNhat[0].TrangThai == "xóa tất cả")
                         {
                             List<DichVu>? listDichVuXoaTatCa = await dbcontext.DichVus.Where(p => p.TrangThai == "chưa thanh toán" && p.PhongId == listDichVu.dichVuDTOsCapNhat[0].PhongId).ToListAsync();
@@ -153,9 +156,13 @@ namespace DAO
                             }
                             listDichVu.dichVuDTOsCapNhat.Clear();
                         }
+                        //nếu list không có trạng thái xóa tất cả thì sẽ chạy xuống vòng lặp thêm và cập nhật
                         foreach (DichVuDTO dichVu in listDichVu.dichVuDTOsCapNhat)
                         {
+                            //tìm dịch vụ đã có trong csdl chưa
                             DichVu? item = dbcontext.DichVus.Where(p => p.DichVuId == dichVu.DichVuId).FirstOrDefault();
+                            
+                            //nếu chưa thì là cần thêm mới
                             if (item == null)
                             {
                                 if (dichVu.PhieuNhanId == 0)
@@ -165,6 +172,8 @@ namespace DAO
                                 dbcontext.DichVus.Add(dichVu);
                                 await dbcontext.SaveChangesAsync();
                             }
+
+                            //nếu có trong csdl rồi thì cần cập nhật
                             else
                             {
                                 if (dichVu.PhieuNhanId == 0 || dichVu.PhieuNhanId == null)
@@ -179,14 +188,26 @@ namespace DAO
                                 await dbcontext.SaveChangesAsync();
                             }
                         }
+
+                        //xóa những dịch vụ cần xóa
+
+                        //bước đầu tiên cần lấy tất cả dịch vụ của phòng cần xóa trong csdl
                         List<DichVu>? listDichVuBanDau = await dbcontext.DichVus.Where(p => p.TrangThai == "chưa thanh toán" && p.PhongId == listDichVu.dichVuDTOsCapNhat[0].PhongId).ToListAsync();
+
+                        
                         if (listDichVuBanDau.Count > 0)
                         {
+                            //đầu tiên tạo 1 list dịch vụ để chứa những dịch vụ cần xóa
                             //var firstNotSecond = listDichVuBanDau.Except(listDichVu.dichVuDTOsCapNhat).ToList();
                             List<DichVu>? firstNotSecond = new List<DichVu>();
                             for (int i=0;i<listDichVuBanDau.Count;i++)
                             {
+                                //tạo biến bool để biết cái nào là cái cần xóa
                                 bool check=false;
+
+                                //lúc này ta sẽ kiểm tra những dịch vụ nào của phòng này nhưng mà lại không có trong list dữ liệu truyền vào thì là dịch vụ cần xóa
+                                //bởi vì cái cần xóa đã bị xóa bởi người dùng trong giao diện trước khi truyền dữ liệu
+                                //nên lúc này dịch vụ nào có trong csdl mà không có trong list truyền vào là dịch vụ cần xóa
                                 for(int j = 0; j < listDichVu.dichVuDTOsCapNhat.Count; j++)
                                 {
                                     if (listDichVuBanDau[i].HangHoaId == listDichVu.dichVuDTOsCapNhat[j].HangHoaId)
@@ -199,6 +220,8 @@ namespace DAO
                                     firstNotSecond.Add(listDichVuBanDau[i]as DichVu);
                                 }
                             }
+
+                            //nếu có dịch vụ cần xóa thì set trạng thái của dịch vụ thành đã xóa
                             if (firstNotSecond.Count > 0)
                             {
                                 for (int i = 0; i < firstNotSecond.Count; i++)

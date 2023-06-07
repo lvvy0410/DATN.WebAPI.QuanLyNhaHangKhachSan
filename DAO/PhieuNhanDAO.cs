@@ -74,11 +74,24 @@ namespace DAO
             {
                 try
                 {
+                    //thêm khách hàng
+                    dbcontext.KhachHangs.Add(nhanPhong.khachHang);
+                    await dbcontext.SaveChangesAsync();
+
+                    //lấy khách hàng id để thêm vào phiếu nhận
+                    long khachHangId = nhanPhong.khachHang.KhachHangId;
+
+                    //thêm phiếu nhận
+                    long count = dbcontext.PhieuNhans.Count();
+                    nhanPhong.phieuNhanDTO.SoChungTu="PN"+ count+1;
+                    nhanPhong.phieuNhanDTO.KhachHangId = khachHangId;
                     dbcontext.PhieuNhans.Add(nhanPhong.phieuNhanDTO);
                     await dbcontext.SaveChangesAsync();
 
+                    //lấy phiếu nhận id để cho vào phiếu nhận phòng chi tiết
                     long phieuNhanId = nhanPhong.phieuNhanDTO.PhieuNhanId;
 
+                    //thêm phiếu nhận phòng chi tiết
                     foreach (PhieuNhanPhongChiTietDTO phieuDatPhongChiTietDTO in nhanPhong.phieuNhanPhongChiTietDTOs)
                     {
                         phieuDatPhongChiTietDTO.PhieuNhanId = phieuNhanId;

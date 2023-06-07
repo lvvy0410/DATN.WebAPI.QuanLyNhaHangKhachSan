@@ -27,7 +27,7 @@ namespace DAO
             try
             {
                 error.data = await dbcontext.PhieuDats.FromSqlRaw($"LayDanhSachPhieuDat '{obPhieuDat.PhieuDatId}', '{obPhieuDat.SoChungTu}'," +
-                    $"'{obPhieuDat.LoaiPhieuId}', '{obPhieuDat.KhachHangId}'").ToListAsync();
+                    $"'{obPhieuDat.loaiPhieu}', '{obPhieuDat.KhachHangId}', N'{obPhieuDat.TrangThai}'").ToListAsync();
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);
             }
@@ -76,6 +76,17 @@ namespace DAO
             {
                 try
                 {
+                    //thêm khách hàng
+                    dbcontext.KhachHangs.Add(datPhong.khachHang);
+                    await dbcontext.SaveChangesAsync();
+
+                    //lấy khách hàng id để thêm vào phiếu nhận
+                    long khachHangId = datPhong.khachHang.KhachHangId;
+
+                    //thêm phiếu đặt
+                    long count = dbcontext.PhieuNhans.Count();
+                    datPhong.phieuDatDTO.SoChungtu = "PN" + count + 1;
+                    datPhong.phieuDatDTO.KhachHangId = khachHangId;
                     dbcontext.PhieuDats.Add(datPhong.phieuDatDTO);
                     await dbcontext.SaveChangesAsync();
 

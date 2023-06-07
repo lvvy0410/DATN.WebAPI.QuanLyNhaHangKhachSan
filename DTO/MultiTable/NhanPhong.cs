@@ -1,4 +1,5 @@
-﻿using DTO.publicDTO;
+﻿using DTO.Model;
+using DTO.publicDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace DTO.MultiTable
     {
         public PhieuNhanDTO phieuNhanDTO { get; set; }
         public List<PhieuNhanPhongChiTietDTO> phieuNhanPhongChiTietDTOs { get; set; }
+        public KhachHang? khachHang { get; set; }
     }
 }

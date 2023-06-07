@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DTO.MultiTable;
 
 namespace DAO
 {
@@ -37,13 +38,13 @@ namespace DAO
                 return await Task.FromResult(error);
             }
         }
-        public async Task<ErrorMessageDTO> LayPhieuDatPhongChiTiet(int PhieuDatPhongChiTietID)
+        public async Task<ErrorMessageDTO> LayPhieuDatPhongChiTiet(PhieuDatDTO phieuDat)
         {
             //return dbcontext.PhieuDatPhongChiTiets.Where(p => p.PhieuDatPhongChiTietID == PhieuDatPhongChiTietID).FirstOrDefault();
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                PhieuDatPhongChiTiet? item = await dbcontext.PhieuDatPhongChiTiets.Where(p => p.PhieuDatPhongChiTietId == PhieuDatPhongChiTietID).FirstOrDefaultAsync();
+                List<PhieuDatPhongChiTiet> item = await dbcontext.PhieuDatPhongChiTiets.Where(p => p.PhieuDatId == phieuDat.PhieuDatId).ToListAsync();
                 if (item == null)
                 {
                     error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
