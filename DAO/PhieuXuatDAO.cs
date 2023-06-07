@@ -1,5 +1,7 @@
 ﻿using DTO.Context;
 using DTO.DieuKienLoc;
+using DTO.Model;
+using DTO.MultiTable;
 using DTO.Public;
 using DTO.publicDTO;
 using Microsoft.EntityFrameworkCore;
@@ -37,33 +39,44 @@ namespace DAO
                 return await Task.FromResult(error);
             }
         }
-        public async Task<ErrorMessageDTO> ThemDV(DichVuDTO dichvu)
+       public async Task<ErrorMessageDTO> ThemPhieuXuat(XuatPhong xuatPhong)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
+                try
+                {
+                    dbcontext.PhieuXuats.Add(xuatPhong.phieuXuatDTO);
+                    await dbcontext.SaveChangesAsync();
 
-                if (error.flagBiLoiEx)
+                    long phieuXuatId = xuatPhong.phieuXuatDTO.PhieuXuatId;
+
+                    foreach (PhieuXuatChiTietDTO phieuXuatChiTietDTO in xuatPhong.phieuXuatChiTiets)
+                    {
+                        phieuXuatChiTietDTO.PhieuXuatId = phieuXuatId;
+                        dbcontext.PhieuXuatChiTiets.Add(phieuXuatChiTietDTO);
+                        await dbcontext.SaveChangesAsync();
+                    }
+                    error.data = await dbcontext.SaveChangesAsync();
+                    error.flagThanhCong = true;
+                    return await Task.FromResult(error);
+                }
+                catch
                 {
                     error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
                     error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
                     error.flagThanhCong = false;
                     return await Task.FromResult(error);
                 }
-                dbcontext.DichVus.Add(dichvu);
-                error.data = await dbcontext.SaveChangesAsync();
-                error.flagThanhCong = true;
-                return await Task.FromResult(error);
-
-
             }
             catch (Exception ex)
             {
-                error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
-                error.message = ResponseDTO.GetValueError(ErrorCodeEnum.InternalServerError);
                 error.flagBiLoiEx = true;
+                error.message=ResponseDTO.GetValueError(ErrorCodeEnum.InternalServerError).ToString();
+                error.errorCode=Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString() ;
                 return await Task.FromResult(error);
             }
+
         }
 
 

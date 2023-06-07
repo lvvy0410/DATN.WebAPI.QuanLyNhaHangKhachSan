@@ -290,5 +290,24 @@ namespace DAO
 
 
         }
+
+        public async Task<ErrorMessageDTO> LayDVTheoPN(DichVuDTO? dichVu)
+        {
+            ErrorMessageDTO error = new ErrorMessageDTO();
+            try
+            {
+                error.data = await dbcontext.DichVus.FromSqlRaw($"LayDVTheoPN  '{dichVu.PhieuNhanId}'," +
+                     $"'{dichVu.PhongId}'").ToListAsync();
+                error.flagThanhCong = true;
+                return await Task.FromResult(error);
+            }
+            catch (Exception ex)
+            {
+                error.flagBiLoiEx = true;
+                error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
+                error.message = ex.Message;
+                return await Task.FromResult(error);
+            }
+        }
     }
 }

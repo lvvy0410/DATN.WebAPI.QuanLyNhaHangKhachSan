@@ -61,6 +61,7 @@ builder.Services.AddTransient<PhieuNhapChiTietDAO, PhieuNhapChiTietDAO>();
 builder.Services.AddTransient<PhieuNhapDAO, PhieuNhapDAO>();
 builder.Services.AddTransient<PhieuThuDAO, PhieuThuDAO>();
 builder.Services.AddTransient<PhieuXuatDAO, PhieuXuatDAO>();
+builder.Services.AddTransient<PhieuXuatChiTietDAO, PhieuXuatChiTietDAO>();
 builder.Services.AddTransient<PhongDAO, PhongDAO>();
 builder.Services.AddTransient<TrangThaiDAO, TrangThaiDAO>();
 builder.Services.AddTransient<TrangThietBiDAO, TrangThietBiDAO>();

@@ -1,9 +1,8 @@
 ﻿using DAO;
 using DTO.Context;
 using DTO.DieuKienLoc;
-using DTO.Model;
-using DTO.MultiTable;
 using DTO.Public;
+using DTO.Model;
 using DTO.publicDTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,28 +11,26 @@ using System.Net;
 namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 {
     [Authorize]
-    [Route("api/PhieuXuat")]
+    [Route("api/PhieuXuatChiTiet")]
     [ApiController]
-    public class PhieuXuatController : Controller
+    public class PhieuXuatChiTietController : Controller
     {
-
-
         private readonly QuanLyNhaHangKhachSanContext dbcontext;
-        private readonly PhieuXuatDAO phieuXuatDAO;
+        private readonly PhieuXuatChiTietDAO phieuXuatChiTietDAO;
 
-        public PhieuXuatController(QuanLyNhaHangKhachSanContext dbcontext, PhieuXuatDAO phieuXuatDAO)
+        public PhieuXuatChiTietController(QuanLyNhaHangKhachSanContext dbcontext, PhieuXuatChiTietDAO phieuXuatChiTietDAO)
         {
-            this.phieuXuatDAO = phieuXuatDAO;
+            this.phieuXuatChiTietDAO = phieuXuatChiTietDAO;
             this.dbcontext = dbcontext;
         }
         [HttpPost]
-        [Route("danhsach-PhieuXuat")]
-        public async Task<ActionResult<ResponseDTO>> LayDanhSachPhieuXuat(DieuKienLocPhieuXuat? obPhieuXuat)
+        [Route("danhsach-phieuXuatChiTiet")]
+        public async Task<ActionResult<ResponseDTO>> LayPhieuXuatPhongCT(DieuKienLocPhieuXuatChiTiet? oblay)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await phieuXuatDAO.LayDanhSachPhieuXuat(obPhieuXuat);
+                ErrorMessageDTO error = await phieuXuatChiTietDAO.LayPhieuXuatChiTiet(oblay);
                 if (error.flagBiLoiEx || !error.flagThanhCong)
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
@@ -58,14 +55,14 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
             }
         }
         [HttpPost]
-        [Route("themphieuxuat")]
-        public async Task<ActionResult<ResponseDTO>> ThemPhieuXuat(XuatPhong phieuXuat)
+        [Route("themphieuxuatCT")]
+        public async Task<ActionResult<ResponseDTO>> ThemPhieuXuatChiTiet(PhieuXuatChiTietDTO phieuXuatChiTiet)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await phieuXuatDAO.ThemPhieuXuat(phieuXuat);
-                if (error.flagBiLoiEx != !error.flagThanhCong)
+                ErrorMessageDTO error = await phieuXuatChiTietDAO.ThemPhieuXuatChiTiet(phieuXuatChiTiet);
+                if (error.flagBiLoiEx)
                 {
                     responseDTO.statusCode = HttpStatusCode.OK;
                     responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
@@ -87,5 +84,6 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                 return BadRequest(responseDTO);
             }
         }
+
     }
 }
