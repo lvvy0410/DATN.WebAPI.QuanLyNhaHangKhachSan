@@ -309,5 +309,38 @@ namespace DAO
                 return await Task.FromResult(error);
             }
         }
+
+        public async Task<ErrorMessageDTO> CapNhatDV(DichVuDTO dv)
+        {
+            ErrorMessageDTO error = new ErrorMessageDTO();
+            DichVu? item = dbcontext.DichVus.Where(p => p.DichVuId == dv.DichVuId).FirstOrDefault();
+            try
+            {
+                if (error.flagBiLoiEx)
+                {
+                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheCapNhat).ToString();
+                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheCapNhat);
+                    return await Task.FromResult(error);
+                }
+                error.flagThanhCong = true;
+                item.TrangThai = dv.TrangThai;
+                await dbcontext.SaveChangesAsync();
+                error.data = item;
+                error.errorCode = Convert.ToInt32(ErrorCodeEnum.NoError).ToString();
+                error.message = ResponseDTO.GetValueError(ErrorCodeEnum.CapNhatThanhCong);
+                return await Task.FromResult(error);
+            }
+            catch (Exception)
+            {
+
+                error.flagBiLoiEx = true;
+                error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
+                error.message = ResponseDTO.GetValueError(ErrorCodeEnum.InternalServerError).ToString();
+                return await Task.FromResult(error);
+
+            }
+
+
+        }
     }
 }
