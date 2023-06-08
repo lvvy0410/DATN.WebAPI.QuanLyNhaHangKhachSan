@@ -1,6 +1,7 @@
 ﻿using DTO.Context;
 using DTO.Model;
 using DTO.Public;
+using DTO.publicDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -94,7 +95,7 @@ namespace DAO
 
         }
 
-        public async Task<ErrorMessageDTO> CapNhatBan(Ban ban)
+        public async Task<ErrorMessageDTO> CapNhatBan(BanDTO ban)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             Ban? item = dbcontext.Bans.Where(p => p.BanId == ban.BanId).FirstOrDefault();
@@ -107,13 +108,9 @@ namespace DAO
                     return await Task.FromResult(error);
                 }
                 error.flagThanhCong = true;
-                item.LoaiBan = ban.LoaiBan;
-                item.TrangThai = ban.TrangThai;
-                item.TenBan = ban.TenBan;
-                
+                item.TrangThaiId = ban.TrangThaiId;               
                 await dbcontext.SaveChangesAsync();
                 error.data = item;
-
                 error.errorCode = Convert.ToInt32(ErrorCodeEnum.NoError).ToString();
                 error.message = ResponseDTO.GetValueError(ErrorCodeEnum.CapNhatThanhCong);
                 return await Task.FromResult(error);
