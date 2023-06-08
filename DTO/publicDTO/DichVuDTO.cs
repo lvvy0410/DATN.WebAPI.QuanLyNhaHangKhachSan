@@ -14,7 +14,7 @@ namespace DTO.publicDTO
         public virtual PhieuNhan? PhieuNhan { get; set; }
         public virtual Phong? Phong { get; set; }
 
-        public string? GhiChu { get; set; } 
-        public string? TrangThai { get; set; } 
+        //public string? GhiChu { get; set; } 
+        //public string? TrangThai { get; set; } 
     }
 }
