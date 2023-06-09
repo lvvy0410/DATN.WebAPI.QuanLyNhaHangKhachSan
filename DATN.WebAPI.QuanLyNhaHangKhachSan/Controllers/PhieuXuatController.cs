@@ -87,5 +87,44 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                 return BadRequest(responseDTO);
             }
         }
+        [HttpPost]
+        [Route("CapNhat-PX")]
+        public async Task<ActionResult<PhieuXuat>> CapNhatPX(PhieuXuatDTO dv)
+        {
+            ResponseDTO responseDTO = new ResponseDTO();
+            try
+            {
+                ErrorMessageDTO error = await phieuXuatDAO.CapNhatPX(dv);
+                if (error.flagBiLoiEx || !error.flagThanhCong)
+                {
+
+                    responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheCapNhat).ToString();
+                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
+                    return Ok(responseDTO);
+
+                }
+                if (error.data == null)
+                {
+
+                    responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
+                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
+                    return Ok(responseDTO);
+                }
+                responseDTO.statusCode = HttpStatusCode.OK;
+                responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.CapNhatThanhCong);
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.CapNhatThanhCong).ToString();
+                responseDTO.data = error.data;
+                return Ok(responseDTO);
+
+
+            }
+            catch (Exception ex)
+            {
+                responseDTO.statusCode = HttpStatusCode.BadRequest;
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
+                responseDTO.message = ex.Message;
+                return BadRequest(responseDTO);
+            }
+        }
     }
 }

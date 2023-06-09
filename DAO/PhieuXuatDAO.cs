@@ -78,6 +78,39 @@ namespace DAO
             }
 
         }
+        public async Task<ErrorMessageDTO> CapNhatPX(PhieuXuatDTO dv)
+        {
+            ErrorMessageDTO error = new ErrorMessageDTO();
+            PhieuXuat? item = dbcontext.PhieuXuats.Where(p => p.PhieuXuatId == dv.PhieuXuatId).FirstOrDefault();
+            try
+            {
+                if (error.flagBiLoiEx)
+                {
+                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheCapNhat).ToString();
+                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheCapNhat);
+                    return await Task.FromResult(error);
+                }
+                error.flagThanhCong = true;
+                item.TongThanhTien = dv.TongThanhTien;
+                item.Trangthai=dv.Trangthai;
+                await dbcontext.SaveChangesAsync();
+                error.data = item;
+                error.errorCode = Convert.ToInt32(ErrorCodeEnum.NoError).ToString();
+                error.message = ResponseDTO.GetValueError(ErrorCodeEnum.CapNhatThanhCong);
+                return await Task.FromResult(error);
+            }
+            catch (Exception)
+            {
+
+                error.flagBiLoiEx = true;
+                error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
+                error.message = ResponseDTO.GetValueError(ErrorCodeEnum.InternalServerError).ToString();
+                return await Task.FromResult(error);
+
+            }
+
+
+        }
 
 
     }
