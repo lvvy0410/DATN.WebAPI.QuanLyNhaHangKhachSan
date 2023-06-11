@@ -247,12 +247,12 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
 
         [HttpPost]
         [Route("CapNhat-DV")]
-        public async Task<ActionResult<DichVu>> CapNhatDV(DichVuDTO dv)
+        public async Task<ActionResult<DichVu>> CapNhatDichVu(DichVuDTO dv)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await dichVuDAO.CapNhatDV(dv);
+                ErrorMessageDTO error = await dichVuDAO.CapNhatDichVu(dv);
                 if (error.flagBiLoiEx || !error.flagThanhCong)
                 {
 
