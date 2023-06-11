@@ -10,6 +10,7 @@ namespace DTO.publicDTO
     public class PhieuXuatDTO:PhieuXuat
     {
         public virtual KhachHang? KhachHang { get; set; } 
-        public virtual NguoiDung? NguoiDung { get; set; } 
+        public virtual NguoiDung? NguoiDung { get; set; }
+      
     }
 }

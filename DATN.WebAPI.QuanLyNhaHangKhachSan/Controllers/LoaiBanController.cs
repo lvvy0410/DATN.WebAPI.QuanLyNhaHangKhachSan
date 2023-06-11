@@ -1,58 +1,53 @@
 ﻿using DAO;
 using DTO.Context;
+using DTO.Model;
 using DTO.Public;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
-{
-    [Authorize]
-
-    [Route("api/[controller]")]
-    [ApiController]
-    public class LoaiBanController : Controller
+{ [Authorize]
+        [Route("api/[controller]")]
+        [ApiController]
+    public class LoaiBanController : ControllerBase
     {
         private readonly QuanLyNhaHangKhachSanContext dbcontext;
         private readonly LoaiBanDAO loaiBanDAO;
-
         public LoaiBanController(QuanLyNhaHangKhachSanContext dbcontext, LoaiBanDAO loaiBanDAO)
         {
             this.dbcontext = dbcontext;
             this.loaiBanDAO = loaiBanDAO;
         }
-
         [HttpPost]
-        [Route("danhsach-LoaiBan")]
-        public async Task<ActionResult<ResponseDTO>> LayDanhSachLoaiBan()
+        [Route("lay_ds_loaiban")]
+        public async Task<ActionResult<ResponseDTO>> LayLoaiBan()
         {
-
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
                 ErrorMessageDTO error = await loaiBanDAO.LayDanhSachLoaiBan();
-                if (error.flagBiLoiEx || !error.flagThanhCong)//(error.flagThanhCong == false))
+                if(error.flagBiLoiEx||!error.flagThanhCong)
                 {
-
-                    responseDTO.errorCode = error.errorCode;
-                    responseDTO.message = error.message;
+                    responseDTO.message= error.message;
+                    responseDTO.errorCode= error.errorCode;
                     return Ok(responseDTO);
                 }
-
+                error.flagThanhCong = true;
+                responseDTO.message= error.message;
                 responseDTO.statusCode = HttpStatusCode.OK;
-                responseDTO.message = HttpStatusCode.OK.ToString();
-                responseDTO.data = error.data;
-
+                responseDTO.data= error.data;
                 return Ok(responseDTO);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-
                 responseDTO.statusCode = HttpStatusCode.BadRequest;
                 responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
                 responseDTO.message = ex.Message;
                 return BadRequest(responseDTO);
             }
         }
+
+       
     }
 }
