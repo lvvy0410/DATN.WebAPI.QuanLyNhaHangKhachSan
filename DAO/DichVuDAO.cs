@@ -310,7 +310,7 @@ namespace DAO
             }
         }
 
-        public async Task<ErrorMessageDTO> CapNhatDV(DichVuDTO dv)
+        public async Task<ErrorMessageDTO> CapNhatDichVu(DichVuDTO dv)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             DichVu? item = dbcontext.DichVus.Where(p => p.DichVuId == dv.DichVuId).FirstOrDefault();
