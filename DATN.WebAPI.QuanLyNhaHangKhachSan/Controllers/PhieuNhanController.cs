@@ -126,6 +126,42 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
                 return BadRequest(responseDTO);
             }
         }
+
+
+
+        [HttpPost]
+        [Route("them-PhieuNhan-Ban")]
+        public async Task<ActionResult<ResponseDTO>> ThemPhieuNhanBan(NhanBan nhanBan)
+        {
+            ResponseDTO responseDTO = new ResponseDTO();
+            try
+            {
+                ErrorMessageDTO error = await PhieuNhanDAO.ThemPhieuNhanBan(nhanBan);
+                if (error.flagBiLoiEx || !error.flagThanhCong)
+                {
+                    responseDTO.statusCode = HttpStatusCode.OK;
+                    responseDTO.errorCode = error.errorCode;
+                    responseDTO.message = error.message;
+                    return Ok(responseDTO);
+                }
+
+                responseDTO.statusCode = HttpStatusCode.OK;
+                responseDTO.message = HttpStatusCode.OK.ToString();
+                responseDTO.data = error.data;
+
+                return Ok(responseDTO);
+            }
+            catch (Exception ex)
+            {
+
+                responseDTO.statusCode = HttpStatusCode.BadRequest;
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
+                responseDTO.message = ex.Message;
+                return BadRequest(responseDTO);
+            }
+        }
+
+
         [HttpPost]
         [Route("capnhat-PhieuNhan")]
         public async Task<ActionResult<ResponseDTO>> CapNhatPhieuNhan(PhieuNhanDTO obPhieuNhan)

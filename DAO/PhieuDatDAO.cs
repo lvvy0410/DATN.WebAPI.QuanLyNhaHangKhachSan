@@ -118,6 +118,59 @@ namespace DAO
                 return await Task.FromResult(error);
             }
         }
+
+
+        public async Task<ErrorMessageDTO> ThemPhieuDatBan(DatBan datBan)
+        {
+            ErrorMessageDTO error = new ErrorMessageDTO();
+            try
+            {
+                try
+                {
+                    //thêm khách hàng
+                    dbcontext.KhachHangs.Add(datBan.khachHang);
+                    await dbcontext.SaveChangesAsync();
+
+                    //lấy khách hàng id để thêm vào phiếu nhận
+                    long khachHangId = datBan.khachHang.KhachHangId;
+
+                    //thêm phiếu đặt
+                    long count = dbcontext.PhieuNhans.Count();
+                    datBan.phieuDatDTO.SoChungtu = "PN" + count + 1;
+                    datBan.phieuDatDTO.KhachHangId = khachHangId;
+                    dbcontext.PhieuDats.Add(datBan.phieuDatDTO);
+                    await dbcontext.SaveChangesAsync();
+
+                    long phieuDatId = datBan.phieuDatDTO.PhieuDatId;
+
+                    foreach (PhieuDatBanChiTietDTO phieuDatBanChiTietDTO in datBan.phieuDatBanChiTiets)
+                    {
+                        phieuDatBanChiTietDTO.PhieuDatId = phieuDatId;
+                        dbcontext.PhieuDatBanChiTiets.Add(phieuDatBanChiTietDTO);
+                        await dbcontext.SaveChangesAsync();
+                    }
+                    error.data = await dbcontext.SaveChangesAsync();
+                    error.flagThanhCong = true;
+                    return await Task.FromResult(error);
+                }
+                catch
+                {
+                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
+                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
+                    error.flagThanhCong = false;
+                    return await Task.FromResult(error);
+                }
+            }
+            catch (Exception ex)
+            {
+                error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
+                error.message = ResponseDTO.GetValueError(ErrorCodeEnum.InternalServerError);
+                error.flagBiLoiEx = true;
+                return await Task.FromResult(error);
+            }
+        }
+
+
         public async Task<ErrorMessageDTO> CapNhatPhieuDat(PhieuDatDTO obPhieuDat)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();

@@ -27,7 +27,7 @@ namespace DAO
             try
             {
                 error.data = await dbcontext.PhieuNhans.FromSqlRaw($"LayDanhSachPhieuNhan '{obPhieuNhan.PhieuNhanId}', '{obPhieuNhan.SoChungTu}'," +
-                    $"'{obPhieuNhan.LoaiPhieuId}', '{obPhieuNhan.KhachHangId}'").ToListAsync();
+                    $"'{obPhieuNhan.LoaiPhieuId}', '{obPhieuNhan.KhachHangId}', N'{obPhieuNhan.TrangThai}'").ToListAsync();
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);
             }
@@ -74,6 +74,14 @@ namespace DAO
             {
                 try
                 {
+                    foreach (PhieuNhanPhongChiTietDTO phieu in nhanPhong.phieuNhanPhongChiTietDTOs)
+                    {
+                        Phong phong = await dbcontext.Phongs.Where(p=>p.PhongId==phieu.PhongId).FirstOrDefaultAsync();
+                        phong.TrangThaiId = 4;
+                        await dbcontext.SaveChangesAsync();
+                    }
+
+
                     //thêm khách hàng
                     dbcontext.KhachHangs.Add(nhanPhong.khachHang);
                     await dbcontext.SaveChangesAsync();
@@ -118,6 +126,68 @@ namespace DAO
                 return await Task.FromResult(error);
             }
         }
+
+        public async Task<ErrorMessageDTO> ThemPhieuNhanBan(NhanBan nhanBan)
+        {
+            ErrorMessageDTO error = new ErrorMessageDTO();
+            try
+            {
+                try
+                {
+                    foreach (PhieuNhanBanChiTietDTO phieu in nhanBan.phieuNhanBanChiTietDTOs)
+                    {
+                        Ban ban = await dbcontext.Bans.Where(p => p.BanId == phieu.BanId).FirstOrDefaultAsync();
+                        ban.TrangThaiId = 4;
+                        await dbcontext.SaveChangesAsync();
+                    }
+
+
+                    //thêm khách hàng
+                    dbcontext.KhachHangs.Add(nhanBan.khachHang);
+                    await dbcontext.SaveChangesAsync();
+
+                    //lấy khách hàng id để thêm vào phiếu nhận
+                    long khachHangId = nhanBan.khachHang.KhachHangId;
+
+                    //thêm phiếu nhận
+                    long count = dbcontext.PhieuNhans.Count();
+                    nhanBan.phieuNhanDTO.SoChungTu = "PN" + count + 1;
+                    nhanBan.phieuNhanDTO.KhachHangId = khachHangId;
+                    dbcontext.PhieuNhans.Add(nhanBan.phieuNhanDTO);
+                    await dbcontext.SaveChangesAsync();
+
+                    //lấy phiếu nhận id để cho vào phiếu nhận phòng chi tiết
+                    long phieuNhanId = nhanBan.phieuNhanDTO.PhieuNhanId;
+
+                    //thêm phiếu nhận phòng chi tiết
+                    foreach (PhieuNhanBanChiTietDTO phieuNhanBanChiTietDTO in nhanBan.phieuNhanBanChiTietDTOs)
+                    {
+                        phieuNhanBanChiTietDTO.PhieuNhanId = phieuNhanId;
+                        dbcontext.PhieuNhanBanChiTiets.Add(phieuNhanBanChiTietDTO);
+                        await dbcontext.SaveChangesAsync();
+                    }
+                    error.data = await dbcontext.SaveChangesAsync();
+                    error.flagThanhCong = true;
+                    return await Task.FromResult(error);
+                }
+                catch
+                {
+                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
+                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
+                    error.flagThanhCong = false;
+                    return await Task.FromResult(error);
+                }
+            }
+            catch (Exception ex)
+            {
+                error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
+                error.message = ResponseDTO.GetValueError(ErrorCodeEnum.InternalServerError);
+                error.flagBiLoiEx = true;
+                return await Task.FromResult(error);
+            }
+        }
+
+
         public async Task<ErrorMessageDTO> CapNhatPhieuNhan(PhieuNhanDTO obPhieuNhan)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
