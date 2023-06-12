@@ -172,10 +172,8 @@ namespace DAO
                                 dbcontext.DichVus.Add(dichVu);
                                 await dbcontext.SaveChangesAsync();
                             }
-
-                            //nếu có trong csdl rồi thì cần cập nhật
                             else
-                            {
+                            {//nếu có trong csdl rồi thì cần cập nhật
                                 if (dichVu.PhieuNhanId == 0 || dichVu.PhieuNhanId == null)
                                 {
                                     dichVu.PhieuNhanId = null;

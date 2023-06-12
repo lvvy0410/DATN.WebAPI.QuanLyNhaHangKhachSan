@@ -135,7 +135,7 @@ namespace DAO
                     long khachHangId = datBan.khachHang.KhachHangId;
 
                     //thêm phiếu đặt
-                    long count = dbcontext.PhieuNhans.Count();
+                    long count = dbcontext.PhieuDats.Count();
                     datBan.phieuDatDTO.SoChungtu = "PN" + count + 1;
                     datBan.phieuDatDTO.KhachHangId = khachHangId;
                     dbcontext.PhieuDats.Add(datBan.phieuDatDTO);
