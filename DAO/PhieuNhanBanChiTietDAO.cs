@@ -1,4 +1,5 @@
 ﻿using DTO.Context;
+using DTO.DieuKienLoc;
 using DTO.Model;
 using DTO.Public;
 using DTO.publicDTO;
@@ -20,14 +21,17 @@ namespace DAO
             this.dbcontext = dbcontext;
         }
 
-        public async Task<ErrorMessageDTO> LayDanhSachPhieuDatBanChiTiet()
+     
+        public async Task<ErrorMessageDTO> LayPhieuNhanBanChiTiet(DieuKienLocPhieuNhanBanChiTiet phieuNhan)
         {
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                error.data = await dbcontext.PhieuDatBanChiTiets.ToListAsync();
+        error.data = await dbcontext.PhieuNhanBanChiTiets.FromSqlRaw($"LayPhieuNhanBanChiTiet'{phieuNhan.PhieuNhanBanChiTietId}',"+ $"'{phieuNhan.PhieuNhanId}'," + $"'{phieuNhan.BanId}'").ToListAsync();
+         
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);
+
             }
             catch (Exception ex)
             {
@@ -37,31 +41,30 @@ namespace DAO
                 return await Task.FromResult(error);
             }
         }
-        public async Task<ErrorMessageDTO> LayPhieuDatBanChiTiet(PhieuDatDTO phieuDat)
+        public async Task<ErrorMessageDTO> CapNhatPhieuNhanBanChiTiet(PhieuNhanBanChiTietDTO ob)
         {
-            //return dbcontext.PhieuDatBanChiTiets.Where(p => p.PhieuDatBanChiTietID == PhieuDatBanChiTietID).FirstOrDefault();
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                List<PhieuDatBanChiTiet> item = await dbcontext.PhieuDatBanChiTiets.Where(p => p.PhieuDatId == phieuDat.PhieuDatId).ToListAsync();
-                if (item == null)
+                PhieuNhanBanChiTiet? obID = dbcontext.PhieuNhanBanChiTiets.Where(p => p.PhieuNhanBanChiTietId == ob.PhieuNhanBanChiTietId).FirstOrDefault();
+                if (obID == null)
                 {
                     error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTimThay).ToString();
                     error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTimThay);
                     error.flagThanhCong = false;
                     return await Task.FromResult(error);
                 }
-
-                error.data = item;
+                obID.ThoiGianTraBan = ob.ThoiGianTraBan;
+                obID.TrangThai = ob.TrangThai;
+                error.data = await dbcontext.SaveChangesAsync();
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);
-
             }
             catch (Exception ex)
             {
-                error.flagBiLoiEx = true;
                 error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
-                error.message = ex.Message;
+                error.message = ResponseDTO.GetValueError(ErrorCodeEnum.InternalServerError);
+                error.flagBiLoiEx = true;
                 return await Task.FromResult(error);
             }
         }
