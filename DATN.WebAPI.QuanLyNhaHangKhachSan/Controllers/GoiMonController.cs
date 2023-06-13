@@ -1,6 +1,7 @@
 ﻿using DAO;
 using DTO.Context;
 using DTO.Model;
+using DTO.MultiTable;
 using DTO.Public;
 using DTO.publicDTO;
 using Microsoft.AspNetCore.Authorization;
@@ -139,12 +140,12 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Properties
         }
         [HttpPost]
         [Route("capnhat-GoiMon")]
-        public async Task<ActionResult<GoiMon>> CapNhatGoiMon(GoiMonDTO goiMon)
+        public async Task<ActionResult<GoiMon>> CapNhatGoiMon(ListGoiMon listGoiMon)
         {
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await goiMonDAO.CapNhatGM(goiMon);
+                ErrorMessageDTO error = await goiMonDAO.CapNhatGM(listGoiMon);
                 if (error.flagBiLoiEx || !error.flagThanhCong)
                 {
 
