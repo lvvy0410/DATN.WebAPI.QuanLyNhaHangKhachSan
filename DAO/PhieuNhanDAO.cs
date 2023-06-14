@@ -91,7 +91,7 @@ namespace DAO
 
                     //thêm phiếu nhận
                     long count = dbcontext.PhieuNhans.Count();
-                    nhanPhong.phieuNhanDTO.SoChungTu="PN"+ count+1;
+                    nhanPhong.phieuNhanDTO.SoChungTu="PNP"+ count+1;
                     nhanPhong.phieuNhanDTO.KhachHangId = khachHangId;
                     dbcontext.PhieuNhans.Add(nhanPhong.phieuNhanDTO);
                     await dbcontext.SaveChangesAsync();
@@ -151,7 +151,7 @@ namespace DAO
 
                     //thêm phiếu nhận
                     long count = dbcontext.PhieuNhans.Count();
-                    nhanBan.phieuNhanDTO.SoChungTu = "PN" + count + 1;
+                    nhanBan.phieuNhanDTO.SoChungTu = "PNB" + count + 1;
                     nhanBan.phieuNhanDTO.KhachHangId = khachHangId;
                     dbcontext.PhieuNhans.Add(nhanBan.phieuNhanDTO);
                     await dbcontext.SaveChangesAsync();
