@@ -294,8 +294,8 @@ namespace DAO
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                error.data = await dbcontext.DichVus.FromSqlRaw($"LayDVTheoPN  '{dichVu.PhieuNhanId}'," +
-                     $"'{dichVu.PhongId}'").ToListAsync();
+                error.data = await dbcontext.DichVus.FromSqlRaw($"LayDVTheoPN  '{dichVu.PhongId}'," +
+                    $"'{dichVu.PhieuNhanId}'").ToListAsync();
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);
             }
@@ -307,6 +307,7 @@ namespace DAO
                 return await Task.FromResult(error);
             }
         }
+
 
         public async Task<ErrorMessageDTO> CapNhatDichVu(DichVuDTO dv)
         {

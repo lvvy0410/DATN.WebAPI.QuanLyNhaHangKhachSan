@@ -220,7 +220,7 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
             ResponseDTO responseDTO = new ResponseDTO();
             try
             {
-                ErrorMessageDTO error = await dichVuDAO.LayDanhSachDichVu(dichVu);
+                ErrorMessageDTO error = await dichVuDAO.LayDVTheoPN(dichVu);
                 if (error.flagBiLoiEx || !error.flagThanhCong)//(error.flagThanhCong == false))
                 {
 

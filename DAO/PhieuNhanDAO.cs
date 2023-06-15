@@ -203,6 +203,7 @@ namespace DAO
                 }
                 obPhieuNhanId.SoChungTu = obPhieuNhan.SoChungTu;
                 obPhieuNhanId.TrangThai = obPhieuNhan.TrangThai;
+                obPhieuNhanId.NgayTra = obPhieuNhan.NgayTra;
                 error.data = await dbcontext.SaveChangesAsync();
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);
