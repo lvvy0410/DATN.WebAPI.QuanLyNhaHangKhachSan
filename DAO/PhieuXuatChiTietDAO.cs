@@ -25,7 +25,7 @@ namespace DAO
             ErrorMessageDTO error = new ErrorMessageDTO();
             try
             {
-                error.data = await dbcontext.PhieuXuatChiTiets.FromSqlRaw($"LayPhieuXuatChiTiet'{oblay.PhieuXuatChiTietId}','{oblay.PhieuXuatId}'" ).ToListAsync();
+                error.data = await dbcontext.PhieuXuatChiTiets.FromSqlRaw($"LayPhieuXuatChiTiet'{oblay.PhieuXuatId}',"+$"'{oblay.PhieuNhanPhongChiTietId}',"+$"'{oblay.PhieuNhanBanChiTietId}'" ).ToListAsync();
 
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);    

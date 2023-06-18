@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace DTO.DieuKienLoc
 {
-    public class DieuKienLocPhieuXuatChiTiet
+    public class DieuKienLocPhieuXuatChiTiet:PhieuXuatChiTiet
     {
-        public long? PhieuXuatChiTietId { get; set; }
-   
-        public long? PhieuXuatId { get; set; }
+        public virtual HangHoa? HangHoa { get; set; } 
+        public virtual PhieuNhanBanChiTiet? PhieuNhanBanChiTiet { get; set; }
+        public virtual PhieuNhanPhongChiTiet? PhieuNhanPhongChiTiet { get; set; }
+        public virtual PhieuXuat? PhieuXuat { get; set; }
+
+        public string? DonViTinh { get; set; } 
     }
 }
