@@ -15,6 +15,7 @@ namespace DTO.publicDTO
 
         public virtual PhieuNhanBanChiTiet? PhieuNhanBanChiTiet { get; set; }
         public virtual PhieuNhanPhongChiTiet? PhieuNhanPhongChiTiet { get; set; }
-        public long? PhieuNhanBanChiTietId { get; set; }
+        //public long? PhieuNhanBanChiTietId { get; set; }
+       // public long? PhieuNhanPhongChiTietId { get; set; }
     }
 }

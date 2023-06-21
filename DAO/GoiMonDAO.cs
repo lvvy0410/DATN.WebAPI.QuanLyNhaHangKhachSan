@@ -282,6 +282,39 @@ namespace DAO
 
 
         }
+
+        public async Task<ErrorMessageDTO> CapNhatGoiMon(GoiMonDTO gm)
+        {
+            ErrorMessageDTO error = new ErrorMessageDTO();
+            GoiMon? item = dbcontext.GoiMons.Where(p => p.GoiMonId == gm.GoiMonId).FirstOrDefault();
+            try
+            {
+                if (error.flagBiLoiEx)
+                {
+                    error.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheCapNhat).ToString();
+                    error.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheCapNhat);
+                    return await Task.FromResult(error);
+                }
+                error.flagThanhCong = true;
+                item.TrangThai = gm.TrangThai;
+                await dbcontext.SaveChangesAsync();
+                error.data = item;
+                error.errorCode = Convert.ToInt32(ErrorCodeEnum.NoError).ToString();
+                error.message = ResponseDTO.GetValueError(ErrorCodeEnum.CapNhatThanhCong);
+                return await Task.FromResult(error);
+            }
+            catch (Exception)
+            {
+
+                error.flagBiLoiEx = true;
+                error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
+                error.message = ResponseDTO.GetValueError(ErrorCodeEnum.InternalServerError).ToString();
+                return await Task.FromResult(error);
+
+            }
+
+
+        }
     }
 }
 
