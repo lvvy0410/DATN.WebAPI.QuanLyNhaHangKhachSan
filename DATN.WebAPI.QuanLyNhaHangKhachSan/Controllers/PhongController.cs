@@ -1,7 +1,7 @@
 ﻿using DAO;
 using DTO.Context;
 using DTO.Model;
-
+using DTO.MultiTable;
 using DTO.Public;
 using DTO.publicDTO;
 using Microsoft.AspNetCore.Authorization;
@@ -346,5 +346,38 @@ namespace DATN.WebAPI.QuanLyNhaHangKhachSan.Controllers
         //    }
 
         //}
+
+
+        [HttpPost]
+        [Route("Doi-Phong")]
+        public async Task<ActionResult<Phong>> DoiPhong(DoiPhong doiPhong)
+        {
+            ResponseDTO responseDTO = new ResponseDTO();
+            try
+            {
+                ErrorMessageDTO error = await phongDAO.DoiPhong(doiPhong);
+                if (error.flagBiLoiEx)
+                {
+
+                    responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.KhongTheThem).ToString();
+                    responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.KhongTheThem);
+                    return Ok(responseDTO);
+                }
+
+                responseDTO.statusCode = HttpStatusCode.OK;
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.ThemThanhCong).ToString();
+                responseDTO.message = ResponseDTO.GetValueError(ErrorCodeEnum.ThemThanhCong);
+                return Ok(responseDTO);
+            }
+            catch (Exception ex)
+            {
+                responseDTO.statusCode = HttpStatusCode.BadRequest;
+                responseDTO.errorCode = Convert.ToInt32(ErrorCodeEnum.BadRequest).ToString();
+                responseDTO.message = ex.Message;
+
+                return BadRequest(responseDTO);
+            }
+
+        }
     }
 }
