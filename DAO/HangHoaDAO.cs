@@ -55,11 +55,11 @@ namespace DAO
             {
                 if(NhomHangHoa == null||NhomHangHoa=="")
                 {
-                    error.data = await dbcontext.HangHoas.ToListAsync();
+                    error.data = await dbcontext.HangHoas.Where(p=>p.TrangThai== "Đang kinh doanh").ToListAsync();
                 }
                 else
                 {
-                    error.data = await dbcontext.HangHoas.Where(p => p.NhomHangHoa.Equals(NhomHangHoa)).ToListAsync();
+                    error.data = await dbcontext.HangHoas.Where(p => p.NhomHangHoa.Equals(NhomHangHoa)&&p.TrangThai =="Đang kinh doanh").ToListAsync();
                 }
                 error.flagThanhCong = true;
                 return await Task.FromResult(error);
