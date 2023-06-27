@@ -296,6 +296,7 @@ namespace DAO
                     return await Task.FromResult(error);
                 }
                 error.flagThanhCong = true;
+                item.PhieuNhanId=gm.PhieuNhanId;
                 item.TrangThai = gm.TrangThai;
                 await dbcontext.SaveChangesAsync();
                 error.data = item;

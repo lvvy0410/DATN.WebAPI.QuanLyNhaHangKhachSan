@@ -322,6 +322,7 @@ namespace DAO
                     return await Task.FromResult(error);
                 }
                 error.flagThanhCong = true;
+                item.PhieuNhanId=dv.PhieuNhanId;
                 item.TrangThai = dv.TrangThai;
                 await dbcontext.SaveChangesAsync();
                 error.data = item;
