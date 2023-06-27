@@ -1,5 +1,6 @@
 ﻿using DTO.Context;
 using DTO.Model;
+using DTO.MultiTable;
 using DTO.Public;
 using DTO.publicDTO;
 using Microsoft.EntityFrameworkCore;
@@ -158,6 +159,57 @@ namespace DAO
             }
 
 
+        }
+
+        public async Task<ErrorMessageDTO> DoiBan(DoiBan doiBan)
+        {
+            ErrorMessageDTO error = new ErrorMessageDTO();
+            try
+            {
+                List<GoiMon>? goiMons = await dbcontext.GoiMons.Where(p => p.BanId == doiBan.viTriBanDau.BanId && p.TrangThai == "chưa thanh toán").ToListAsync();
+                PhieuNhanBanChiTiet? phieuNhanBanChiTiet = await dbcontext.PhieuNhanBanChiTiets.Where(p => p.BanId == doiBan.viTriBanDau.BanId && p.TrangThai == 4).FirstOrDefaultAsync();
+                PhieuNhan phieuNhan = await dbcontext.PhieuNhans.Where(p => p.PhieuNhanId == phieuNhanBanChiTiet.PhieuNhanId).FirstOrDefaultAsync();
+
+
+                if (goiMons.Count() > 0)
+                {
+                    foreach (GoiMon goiMon in goiMons)
+                    {
+                        goiMon.BanId = doiBan.viTriDoi.BanId;
+                        await dbcontext.SaveChangesAsync();
+                    }
+                }
+                if (phieuNhanBanChiTiet != null)
+                {
+                    phieuNhanBanChiTiet.BanId = doiBan.viTriDoi.BanId;
+                }
+
+                Ban? viTriBanDau = await dbcontext.Bans.Where(p => p.BanId == doiBan.viTriBanDau.BanId).FirstOrDefaultAsync();
+                viTriBanDau.TrangThaiId = 1;
+                Ban? viTriDoi = await dbcontext.Bans.Where(p => p.BanId == doiBan.viTriDoi.BanId).FirstOrDefaultAsync();
+                viTriDoi.TrangThaiId = 4;
+                await dbcontext.SaveChangesAsync();
+
+                LichSuDoiDTO lichSuDoiDTO = new LichSuDoiDTO();
+                lichSuDoiDTO.ViTriBanDau = doiBan.viTriBanDau.TenBan;
+                lichSuDoiDTO.ViTriDoi = doiBan.viTriDoi.TenBan;
+                lichSuDoiDTO.LyDoDoi = doiBan.lyDoDoi;
+                lichSuDoiDTO.GhiChu = doiBan.ghiChu;
+                lichSuDoiDTO.PhieuNhanId = phieuNhan.PhieuNhanId;
+
+
+                dbcontext.LichSuDois.Add(lichSuDoiDTO);
+                error.data = await dbcontext.SaveChangesAsync();
+                error.flagThanhCong = true;
+                return await Task.FromResult(error);
+            }
+            catch (Exception ex)
+            {
+                error.flagBiLoiEx = true;
+                error.errorCode = Convert.ToInt32(ErrorCodeEnum.InternalServerError).ToString();
+                error.message = ex.Message;
+                return await Task.FromResult(error);
+            }
         }
     }
 }
