@@ -93,7 +93,8 @@ namespace DAO
             {
               
                 error.flagThanhCong = true;          
-                item.Sdt = nguoiDung.Sdt;               
+                item.Sdt = nguoiDung.Sdt;  
+                item.Cccd= nguoiDung.Cccd;
                 item.DiaChi = nguoiDung.DiaChi;                           
                 item.MatKhau = nguoiDung.MatKhau;                           
                 await dbcontext.SaveChangesAsync();
