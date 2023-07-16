@@ -81,13 +81,21 @@ namespace DAO
                         await dbcontext.SaveChangesAsync();
                     }
 
-
                     //thêm khách hàng
-                    dbcontext.KhachHangs.Add(nhanPhong.khachHang);
-                    await dbcontext.SaveChangesAsync();
+                    long khachHangId;
+                    KhachHang? khachHang = dbcontext.KhachHangs.Where(p => p.Cccd == nhanPhong.khachHang.Cccd).FirstOrDefault();
+                    if (khachHang != null)
+                    {
+                        khachHangId = khachHang.KhachHangId;
+                    }
+                    else
+                    {
+                        dbcontext.KhachHangs.Add(nhanPhong.khachHang);
+                        await dbcontext.SaveChangesAsync();
+                        //lấy khách hàng id để thêm vào phiếu nhận
+                        khachHangId = nhanPhong.khachHang.KhachHangId;
 
-                    //lấy khách hàng id để thêm vào phiếu nhận
-                    long khachHangId = nhanPhong.khachHang.KhachHangId;
+                    }
 
                     //thêm phiếu nhận
                     long count = dbcontext.PhieuNhans.Count();
@@ -143,11 +151,20 @@ namespace DAO
 
 
                     //thêm khách hàng
-                    dbcontext.KhachHangs.Add(nhanBan.khachHang);
-                    await dbcontext.SaveChangesAsync();
+                    long khachHangId;
+                    KhachHang? khachHang = dbcontext.KhachHangs.Where(p => p.Cccd == nhanBan.khachHang.Cccd).FirstOrDefault();
+                    if (khachHang != null)
+                    {
+                        khachHangId = khachHang.KhachHangId;
+                    }
+                    else
+                    {
+                        dbcontext.KhachHangs.Add(nhanBan.khachHang);
+                        await dbcontext.SaveChangesAsync();
+                        //lấy khách hàng id để thêm vào phiếu nhận
+                        khachHangId = nhanBan.khachHang.KhachHangId;
 
-                    //lấy khách hàng id để thêm vào phiếu nhận
-                    long khachHangId = nhanBan.khachHang.KhachHangId;
+                    }
 
                     //thêm phiếu nhận
                     long count = dbcontext.PhieuNhans.Count();
